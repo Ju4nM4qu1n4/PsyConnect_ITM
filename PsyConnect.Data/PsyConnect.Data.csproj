@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj" />
+    <ProjectReference Include="..\PsyConnect.Core.Models\PsyConnect.Core.Models.csproj" />
+  </ItemGroup>
+
+</Project>

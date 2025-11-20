@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. PsyConnect.Core.Entities", "1. PsyConnect.Core.Entities", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. PsyConnect.Core.Models", "2. PsyConnect.Core.Models", "{CA36FDAC-15A1-495D-897D-6F244126A325}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. PsyConnect.Data", "3. PsyConnect.Data", "{369CB01D-A1A7-72D2-AABC-3F0945D148A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. PsyConnect.Business", "4. PsyConnect.Business", "{7DC331D0-3EC4-40A6-69FB-1CBEB2E0D1EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. PsyConnect.API", "5. PsyConnect.API", "{643747C7-0307-8931-84D8-A7D1915E22E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. PsyConnect.CrossCutting", "6. PsyConnect.CrossCutting", "{5835D766-9847-1D08-5E95-5A99FD0F495D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.Core.Models", "PsyConnect.Core.Models\PsyConnect.Core.Models.csproj", "{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.Core.Entities", "PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj", "{8AF94E09-B785-431B-9EEF-349EEFAF394A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.Data", "PsyConnect.Data\PsyConnect.Data.csproj", "{93114A3A-23BB-4CF7-874B-D36496EA26A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.Business", "PsyConnect.Business\PsyConnect.Business.csproj", "{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.API", "PsyConnect.API\PsyConnect.API.csproj", "{FACE5F53-B03A-422B-BE99-5B9A51CA7095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyConnect.CrossCutting", "PsyConnect.CrossCutting\PsyConnect.CrossCutting.csproj", "{9336F62A-8900-4E09-A014-E8428171DE79}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AF94E09-B785-431B-9EEF-349EEFAF394A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AF94E09-B785-431B-9EEF-349EEFAF394A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AF94E09-B785-431B-9EEF-349EEFAF394A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AF94E09-B785-431B-9EEF-349EEFAF394A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93114A3A-23BB-4CF7-874B-D36496EA26A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93114A3A-23BB-4CF7-874B-D36496EA26A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93114A3A-23BB-4CF7-874B-D36496EA26A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93114A3A-23BB-4CF7-874B-D36496EA26A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FACE5F53-B03A-422B-BE99-5B9A51CA7095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACE5F53-B03A-422B-BE99-5B9A51CA7095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACE5F53-B03A-422B-BE99-5B9A51CA7095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACE5F53-B03A-422B-BE99-5B9A51CA7095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9336F62A-8900-4E09-A014-E8428171DE79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9336F62A-8900-4E09-A014-E8428171DE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9336F62A-8900-4E09-A014-E8428171DE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9336F62A-8900-4E09-A014-E8428171DE79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F5B73B8-F121-4826-9A2C-A5417AF9CFCC} = {CA36FDAC-15A1-495D-897D-6F244126A325}
+		{8AF94E09-B785-431B-9EEF-349EEFAF394A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{93114A3A-23BB-4CF7-874B-D36496EA26A2} = {369CB01D-A1A7-72D2-AABC-3F0945D148A2}
+		{5D1CF1D4-ABA6-49E1-9F1A-ED0A064A532A} = {7DC331D0-3EC4-40A6-69FB-1CBEB2E0D1EA}
+		{FACE5F53-B03A-422B-BE99-5B9A51CA7095} = {643747C7-0307-8931-84D8-A7D1915E22E5}
+		{9336F62A-8900-4E09-A014-E8428171DE79} = {5835D766-9847-1D08-5E95-5A99FD0F495D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A56A67C-8777-4BBB-96F6-B687523FB58D}
+	EndGlobalSection
+EndGlobal

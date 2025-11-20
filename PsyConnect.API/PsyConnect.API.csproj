@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PsyConnect.Business\PsyConnect.Business.csproj" />
+    <ProjectReference Include="..\PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj" />
+    <ProjectReference Include="..\PsyConnect.Core.Models\PsyConnect.Core.Models.csproj" />
+    <ProjectReference Include="..\PsyConnect.CrossCutting\PsyConnect.CrossCutting.csproj" />
+    <ProjectReference Include="..\PsyConnect.Data\PsyConnect.Data.csproj" />
+  </ItemGroup>
+
+</Project>
