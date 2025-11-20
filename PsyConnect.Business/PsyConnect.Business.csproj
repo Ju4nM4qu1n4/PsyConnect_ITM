@@ -12,4 +12,15 @@
     <ProjectReference Include="..\PsyConnect.Data\PsyConnect.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappings\" />
+    <Folder Include="Services\Recomendaciones\" />
+    <Folder Include="Services\Resultados\" />
+    <Folder Include="Services\Certificados\" />
+    <Folder Include="Services\Tests\" />
+    <Folder Include="Services\Citas\" />
+    <Folder Include="Strategies\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
 </Project>

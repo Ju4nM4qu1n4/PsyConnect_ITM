@@ -15,3 +15,17 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+namespace Hello_repo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Update");
+
+        }
+
+    }
+
+}
