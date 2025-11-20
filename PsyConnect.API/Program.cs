@@ -1,12 +1,26 @@
+using Microsoft.EntityFrameworkCore;
+using PsyConnect.Data.Context;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 
+builder.Services.AddDbContext<PsyConnectContext>(options =>
+
+ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<PsyConnectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
@@ -15,17 +29,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-namespace Hello_repo
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Update");
-
-        }
-
-    }
-
-}

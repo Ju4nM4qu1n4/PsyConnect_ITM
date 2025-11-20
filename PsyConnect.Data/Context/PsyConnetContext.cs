@@ -380,10 +380,10 @@ namespace PsyConnect.Data.Context
                 entity.Property(e => e.RutaArchivo).HasMaxLength(500);
                 entity.Property(e => e.FechaGeneración).HasDefaultValueSql("GETDATE()");
 
-                entity.HasOne(e => e.Psicólogo)
-                    .WithMany(p => p.Reportes)
-                    .HasForeignKey(e => e.PsicólogoID)
-                    .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(e => e.Administrador)
+                .WithMany()
+                .HasForeignKey(e => e.AdministradorID)
+                .OnDelete(DeleteBehavior.NoAction);
 
                 entity.HasOne(e => e.Administrador)
                     .WithMany()
