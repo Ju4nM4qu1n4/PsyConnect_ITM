@@ -11,14 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Tests\" />
-    <Folder Include="DTOs\Resultados\" />
-    <Folder Include="DTOs\Recomendaciones\" />
-    <Folder Include="DTOs\Certificados\" />
-    <Folder Include="DTOs\Citas\" />
-    <Folder Include="DTOs\Usuarios\" />
-    <Folder Include="Responses\" />
-    <Folder Include="Requests\" />
     <Folder Include="ViewModels\Citas\" />
     <Folder Include="ViewModels\Resultados\" />
     <Folder Include="ViewModels\Usuarios\" />
