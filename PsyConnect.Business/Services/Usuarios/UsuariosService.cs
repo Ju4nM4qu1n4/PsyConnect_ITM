@@ -46,6 +46,7 @@ namespace PsyConnect.Business.Services.Usuarios
                 Teléfono = request.Teléfono,
                 FechaRegistro = DateTime.Now,
                 Estado = true
+
             };
 
             await _usuarioRepository.AddAsync(usuario);
@@ -58,7 +59,8 @@ namespace PsyConnect.Business.Services.Usuarios
                 Matrícula = request.Matrícula,
                 Carrera = request.Carrera,
                 Semestre = request.Semestre,
-                Género = request.Género
+                Género = request.Género,
+                Dirección = request.Dirección
             };
 
             await _estudianteRepository.AddAsync(estudiante);

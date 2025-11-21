@@ -11,5 +11,6 @@
         public string Carrera { get; set; }
         public int Semestre { get; set; }
         public string Género { get; set; }
+        public string Dirección { get; set; }
     }
 }

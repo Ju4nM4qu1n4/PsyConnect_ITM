@@ -34,7 +34,7 @@ namespace PsyConnect.API.Controllers
                 return BadRequest(new ErrorResponse
                 {
                     Mensaje = "Error al registrar estudiante",
-                    Detalle = ex.Message
+                    Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
@@ -56,7 +56,7 @@ namespace PsyConnect.API.Controllers
                 return BadRequest(new ErrorResponse
                 {
                     Mensaje = "Error al registrar psicólogo",
-                    Detalle = ex.Message
+                    Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
@@ -78,7 +78,7 @@ namespace PsyConnect.API.Controllers
                 return Unauthorized(new ErrorResponse
                 {
                     Mensaje = "Error de autenticación",
-                    Detalle = ex.Message
+                    Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
@@ -100,7 +100,7 @@ namespace PsyConnect.API.Controllers
                 return NotFound(new ErrorResponse
                 {
                     Mensaje = "Usuario no encontrado",
-                    Detalle = ex.Message
+                    Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
@@ -121,7 +121,7 @@ namespace PsyConnect.API.Controllers
                 return BadRequest(new ErrorResponse
                 {
                     Mensaje = "Error al cambiar contraseña",
-                    Detalle = ex.Message
+                    Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }
