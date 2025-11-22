@@ -7,13 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configurations\**" />
+    <EmbeddedResource Remove="Configurations\**" />
+    <None Remove="Configurations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj" />
     <ProjectReference Include="..\PsyConnect.Core.Models\PsyConnect.Core.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Configurations\" />
   </ItemGroup>
 
   <ItemGroup>
