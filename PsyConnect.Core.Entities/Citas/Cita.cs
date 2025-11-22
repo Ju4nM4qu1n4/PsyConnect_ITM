@@ -15,8 +15,8 @@ namespace PsyConnect.Core.Entities.Citas
         public int Duracion { get; set; }
         public string Ubicacion { get; set; }
         public string? EnlaceTeams { get; set; }
-        public string NotasEstudiante { get; set; }
-        public string ObservacionesPsicologo { get; set; }
+        public string? NotasEstudiante { get; set; }
+        public string? ObservacionesPsicologo { get; set; }
         public DateTime FechaRegistro { get; set; }
         public virtual Estudiante Estudiante { get; set; }
         public virtual Psicologo Psicologo { get; set; }

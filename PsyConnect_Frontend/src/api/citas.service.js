@@ -3,15 +3,26 @@ import axiosInstance from './axios.config';
 const citasService = {
     // Agendar nueva cita
     agendarCita: async (datos) => {
-        const response = await axiosInstance.post('/Citas/agendar', {
-            estudianteId: datos.estudianteId,
-            psicologoId: datos.psicologoId,
-            modalidadId: datos.modalidadId,
-            fechaHora: datos.fechaHora,
-            ubicacion: datos.ubicacion,
-            notas: datos.notas,
-        });
-        return response.data;
+        try {
+            console.log('Datos enviados:', datos);
+
+            const response = await axiosInstance.post('/Citas/agendar', {
+                estudianteId: datos.estudianteId,
+                psicologoId: datos.psicologoId,
+                modalidadId: datos.modalidadId,
+                fechaHora: datos.fechaHora,
+                ubicacion: datos.ubicacion,
+                notas: datos.notas,
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error completo:', error);
+            console.error('Mensaje del servidor:', error.response?.data); 
+            console.error('Status:', error.response?.status);
+            console.error('Detalle:', error.response?.data?.Detalle); 
+            console.error('Mensaje:', error.response?.data?.Mensaje); 
+            throw error;
+        }
     },
 
     // Obtener cita por ID

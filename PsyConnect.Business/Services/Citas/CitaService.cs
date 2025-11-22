@@ -54,7 +54,9 @@ namespace PsyConnect.Business.Services.Citas
                 Ubicacion = request.Ubicacion,
                 NotasEstudiante = request.Notas,
                 FechaRegistro = DateTime.Now,
-                EnlaceTeams = ""
+                EnlaceTeams = "",
+                ObservacionesPsicologo = "",
+                
             };
 
             await _citaRepository.AddAsync(cita);

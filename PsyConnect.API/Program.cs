@@ -59,12 +59,17 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 
-   
+
     options.AddPolicy("AllowLocalhost", builder =>
     {
-        builder.WithOrigins("http://localhost:3000", "http://localhost:5173")
+        builder.WithOrigins(
+                   "http://localhost:3000",
+                   "http://localhost:5173",
+                   "https://localhost:5173"  
+               )
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials(); 
     });
 });
 

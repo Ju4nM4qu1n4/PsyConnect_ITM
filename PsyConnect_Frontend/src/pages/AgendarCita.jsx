@@ -56,9 +56,10 @@ const AgendarCita = () => {
 
             setSuccess(true);
             setTimeout(() => navigate('/citas'), 2000);
-        } catch (err) {
+        } catch {
+            
             setError('Error al agendar cita');
-            console.error(err);
+            
         } finally {
             setLoading(false);
         }
