@@ -18,7 +18,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Si ya está autenticado, redirigir al dashboard
+    // Si ya esta autenticado, redirigir al dashboard
     React.useEffect(() => {
         if (isAuthenticated) {
             navigate('/');
@@ -38,7 +38,7 @@ const Login = () => {
         setError('');
         setLoading(true);
 
-        // Validación básica
+        // Validacion basica
         if (!formData.email || !formData.password) {
             setError('Por favor completa todos los campos');
             setLoading(false);
@@ -51,7 +51,7 @@ const Login = () => {
             if (result.success) {
                 navigate('/');
             } else {
-                setError(result.error || 'Credenciales inválidas');
+                setError(result.error || 'Credenciales invalidas');
             }
         } catch{
             setError('Error al conectar con el servidor');
@@ -63,7 +63,7 @@ const Login = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                {/* Logo y Título */}
+                {/* Logo y Titulo */}
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-bold text-primary-600 mb-2">
                         PsyConnect
@@ -76,7 +76,7 @@ const Login = () => {
                 {/* Card de Login */}
                 <Card padding="lg">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                        Iniciar Sesión
+                        Iniciar Sesion
                     </h2>
 
                     {/* Mensaje de Error */}
@@ -90,7 +90,7 @@ const Login = () => {
                     {/* Formulario */}
                     <form onSubmit={handleSubmit}>
                         <Input
-                            label="Correo Electrónico"
+                            label="Correo Electronico"
                             type="email"
                             name="email"
                             value={formData.email}
@@ -101,7 +101,7 @@ const Login = () => {
                         />
 
                         <Input
-                            label="Contraseña"
+                            label="Contrasena"
                             type="password"
                             name="password"
                             value={formData.password}
@@ -119,11 +119,11 @@ const Login = () => {
                             loading={loading}
                             className="mt-6"
                         >
-                            Iniciar Sesión
+                            Iniciar Sesion
                         </Button>
                     </form>
 
-                    {/* Línea divisoria */}
+                    {/* Linea divisoria */}
                     <div className="relative my-6">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-300"></div>

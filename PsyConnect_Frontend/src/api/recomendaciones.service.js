@@ -1,14 +1,14 @@
 import axiosInstance from './axios.config';
 
 const recomendacionesService = {
-    // Asignar nueva recomendación (solo psicólogos)
+    // Asignar nueva recomendacion (solo psicologos)
     asignarRecomendacion: async (datos) => {
         const response = await axiosInstance.post('/Recomendaciones/asignar', {
             estudianteId: datos.estudianteId,
             psicologoId: datos.psicologoId,
             resultadoId: datos.resultadoId,
-            título: datos.titulo,
-            descripción: datos.descripcion,
+            titulo: datos.titulo,
+            descripcion: datos.descripcion,
             tipoRecurso: datos.tipoRecurso,
             url: datos.url,
         });
@@ -27,7 +27,7 @@ const recomendacionesService = {
         return response.data;
     },
 
-    // Eliminar recomendación
+    // Eliminar recomendacion
     eliminarRecomendacion: async (recomendacionId) => {
         const response = await axiosInstance.delete(`/Recomendaciones/${recomendacionId}`);
         return response.data;

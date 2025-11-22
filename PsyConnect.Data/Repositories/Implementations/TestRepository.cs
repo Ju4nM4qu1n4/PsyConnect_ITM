@@ -28,14 +28,14 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet
                 .Where(t => t.TipoTestID == tipoTestId && t.Activo)
                 .Include(t => t.ModalidadTest)
-                .Include(t => t.Psicólogo)
+                .Include(t => t.Psicologo)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Test>> GetTestsPorPsicologoAsync(int psicologoId)
         {
             return await _dbSet
-                .Where(t => t.PsicólogoID == psicologoId)
+                .Where(t => t.PsicologoID == psicologoId)
                 .Include(t => t.TipoTest)
                 .Include(t => t.ModalidadTest)
                 .ToListAsync();

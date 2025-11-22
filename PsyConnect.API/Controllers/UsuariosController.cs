@@ -47,7 +47,7 @@ namespace PsyConnect.API.Controllers
                 var usuario = await _usuarioService.RegistrarPsicologoAsync(request);
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Psicólogo registrado correctamente",
+                    Mensaje = "Psicologo registrado correctamente",
                     Datos = usuario
                 });
             }
@@ -55,7 +55,7 @@ namespace PsyConnect.API.Controllers
             {
                 return BadRequest(new ErrorResponse
                 {
-                    Mensaje = "Error al registrar psicólogo",
+                    Mensaje = "Error al registrar psicologo",
                     Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
@@ -69,7 +69,7 @@ namespace PsyConnect.API.Controllers
                 var resultado = await _usuarioService.AutenticarAsync(request);
                 return Ok(new SuccessResponse<AuthResponse>
                 {
-                    Mensaje = "Autenticación exitosa",
+                    Mensaje = "Autenticacion exitosa",
                     Datos = resultado
                 });
             }
@@ -77,7 +77,7 @@ namespace PsyConnect.API.Controllers
             {
                 return Unauthorized(new ErrorResponse
                 {
-                    Mensaje = "Error de autenticación",
+                    Mensaje = "Error de autenticacion",
                     Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }
@@ -105,22 +105,22 @@ namespace PsyConnect.API.Controllers
             }
         }
 
-        [HttpPost("cambiar-contraseña")]
-        public async Task<IActionResult> CambiarContraseña([FromBody] CambiarContraseñaRequest request)
+        [HttpPost("cambiar-contrasena")]
+        public async Task<IActionResult> CambiarContrasena([FromBody] CambiarContrasenaRequest request)
         {
             try
             {
-                await _usuarioService.CambiarContraseñaAsync(request.UsuarioId, request.ContrasenaActual, request.NuevaContrasena);
+                await _usuarioService.CambiarContrasenaAsync(request.UsuarioId, request.ContrasenaActual, request.NuevaContrasena);
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Contraseña actualizada correctamente"
+                    Mensaje = "Contrasena actualizada correctamente"
                 });
             }
             catch (System.Exception ex)
             {
                 return BadRequest(new ErrorResponse
                 {
-                    Mensaje = "Error al cambiar contraseña",
+                    Mensaje = "Error al cambiar contrasena",
                     Detalle = ex.InnerException?.Message ?? ex.Message
                 });
             }

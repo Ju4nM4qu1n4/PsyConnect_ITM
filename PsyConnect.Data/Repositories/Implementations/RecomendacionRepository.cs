@@ -18,7 +18,7 @@ namespace PsyConnect.Data.Repositories.Implementations
         {
             return await _dbSet
                 .Where(r => r.EstudianteID == estudianteId && r.Vigente)
-                .Include(r => r.Psicólogo)
+                .Include(r => r.Psicologo)
                 .ToListAsync();
         }
 
@@ -27,14 +27,14 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet
                 .Where(r => r.Vigente)
                 .Include(r => r.Estudiante)
-                .Include(r => r.Psicólogo)
+                .Include(r => r.Psicologo)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<RecomendacionPersonalizada>> GetRecomendacionesPorPsicologoAsync(int psicologoId)
         {
             return await _dbSet
-                .Where(r => r.PsicólogoID == psicologoId)
+                .Where(r => r.PsicologoID == psicologoId)
                 .Include(r => r.Estudiante)
                 .ToListAsync();
         }

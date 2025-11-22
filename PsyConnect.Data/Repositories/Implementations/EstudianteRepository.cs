@@ -16,7 +16,7 @@ namespace PsyConnect.Data.Repositories.Implementations
 
         public async Task<Estudiante> GetEstudiantePorMatriculaAsync(string matricula)
         {
-            return await _dbSet.FirstOrDefaultAsync(e => e.Matrícula == matricula);
+            return await _dbSet.FirstOrDefaultAsync(e => e.Matricula == matricula);
         }
 
         public async Task<Estudiante> GetEstudiantePorUsuarioAsync(int usuarioId)

@@ -6,7 +6,7 @@ using PsyConnect.Core.Entities.Respuestas;
 using PsyConnect.Core.Entities.Resultados;
 using PsyConnect.Core.Entities.Recomendaciones;
 using PsyConnect.Core.Entities.Certificados;
-using PsyConnect.Core.Entities.Auditoría;
+using PsyConnect.Core.Entities.Auditoria;
 using PsyConnect.Core.Entities.Reportes;
 
 namespace PsyConnect.Data.Context
@@ -20,7 +20,7 @@ namespace PsyConnect.Data.Context
         // Usuarios
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
-        public DbSet<Psicólogo> Psicologos { get; set; }
+        public DbSet<Psicologo> Psicologos { get; set; }
 
         // Citas
         public DbSet<ModalidadCita> ModalidadesCita { get; set; }
@@ -48,7 +48,7 @@ namespace PsyConnect.Data.Context
         // Certificados
         public DbSet<Certificado> Certificados { get; set; }
 
-        // Auditoría
+        // Auditoria
         public DbSet<Historico> Historicos { get; set; }
 
         // Reportes
@@ -65,11 +65,11 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.UsuarioID);
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Contraseña).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.Contrasena).IsRequired().HasMaxLength(255);
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Apellido).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.TipoUsuario).IsRequired().HasMaxLength(20);
-                entity.Property(e => e.Teléfono).HasMaxLength(20);
+                entity.Property(e => e.Telefono).HasMaxLength(20);
                 entity.Property(e => e.FechaRegistro).HasDefaultValueSql("GETDATE()");
                 entity.Property(e => e.Estado).HasDefaultValue(true);
 
@@ -80,24 +80,24 @@ namespace PsyConnect.Data.Context
             modelBuilder.Entity<Estudiante>(entity =>
             {
                 entity.HasKey(e => e.EstudianteID);
-                entity.Property(e => e.Matrícula).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.Matricula).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Carrera).HasMaxLength(100);
-                entity.Property(e => e.Género).HasMaxLength(20);
-                entity.Property(e => e.Dirección).HasMaxLength(255);
+                entity.Property(e => e.Genero).HasMaxLength(20);
+                entity.Property(e => e.Direccion).HasMaxLength(255);
 
                 entity.HasOne(e => e.Usuario)
                     .WithMany()
                     .HasForeignKey(e => e.UsuarioID)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasIndex(e => e.Matrícula).IsUnique();
+                entity.HasIndex(e => e.Matricula).IsUnique();
             });
 
 
-            modelBuilder.Entity<Psicólogo>(entity =>
+            modelBuilder.Entity<Psicologo>(entity =>
             {
-                entity.HasKey(e => e.PsicólogoID);
-                entity.Property(e => e.Cédula).IsRequired().HasMaxLength(20);
+                entity.HasKey(e => e.PsicologoID);
+                entity.Property(e => e.Cedula).IsRequired().HasMaxLength(20);
                 entity.Property(e => e.Especialidad).HasMaxLength(100);
                 entity.Property(e => e.Licencia).HasMaxLength(100);
                 entity.Property(e => e.SedeAsignada).HasMaxLength(100).HasDefaultValue("Fraternidad");
@@ -107,7 +107,7 @@ namespace PsyConnect.Data.Context
                     .HasForeignKey(e => e.UsuarioID)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasIndex(e => e.Cédula).IsUnique();
+                entity.HasIndex(e => e.Cedula).IsUnique();
             });
 
 
@@ -115,7 +115,7 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.ModalidadID);
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.Descripción).HasMaxLength(255);
+                entity.Property(e => e.Descripcion).HasMaxLength(255);
 
                 entity.HasIndex(e => e.Nombre).IsUnique();
             });
@@ -133,11 +133,11 @@ namespace PsyConnect.Data.Context
             modelBuilder.Entity<Cita>(entity =>
             {
                 entity.HasKey(e => e.CitaID);
-                entity.Property(e => e.Ubicación).HasMaxLength(255);
+                entity.Property(e => e.Ubicacion).HasMaxLength(255);
                 entity.Property(e => e.EnlaceTeams).HasMaxLength(500);
                 entity.Property(e => e.NotasEstudiante).HasColumnType("nvarchar(max)");
-                entity.Property(e => e.ObservacionesPsicólogo).HasColumnType("nvarchar(max)");
-                entity.Property(e => e.Duración).HasDefaultValue(60);
+                entity.Property(e => e.ObservacionesPsicologo).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Duracion).HasDefaultValue(60);
                 entity.Property(e => e.FechaRegistro).HasDefaultValueSql("GETDATE()");
 
                 entity.HasOne(e => e.Estudiante)
@@ -145,9 +145,9 @@ namespace PsyConnect.Data.Context
                     .HasForeignKey(e => e.EstudianteID)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(e => e.Psicólogo)
+                entity.HasOne(e => e.Psicologo)
                     .WithMany(p => p.Citas)
-                    .HasForeignKey(e => e.PsicólogoID)
+                    .HasForeignKey(e => e.PsicologoID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.ModalidadCita)
@@ -168,7 +168,7 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.TipoTestID);
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Descripción).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Descripcion).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.Activo).HasDefaultValue(true);
 
                 entity.HasIndex(e => e.Nombre).IsUnique();
@@ -188,9 +188,9 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.TestID);
                 entity.Property(e => e.NombreTest).IsRequired().HasMaxLength(150);
-                entity.Property(e => e.Descripción).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Descripcion).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.Activo).HasDefaultValue(true);
-                entity.Property(e => e.FechaCreación).HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.FechaCreacion).HasDefaultValueSql("GETDATE()");
 
                 entity.HasOne(e => e.TipoTest)
                     .WithMany(t => t.Tests)
@@ -202,9 +202,9 @@ namespace PsyConnect.Data.Context
                     .HasForeignKey(e => e.ModalidadTestID)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(e => e.Psicólogo)
+                entity.HasOne(e => e.Psicologo)
                     .WithMany(p => p.Tests)
-                    .HasForeignKey(e => e.PsicólogoID)
+                    .HasForeignKey(e => e.PsicologoID)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -213,7 +213,7 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.PreguntaID);
                 entity.Property(e => e.Texto).IsRequired().HasColumnType("nvarchar(max)");
-                entity.Property(e => e.Tipo).HasMaxLength(50).HasDefaultValue("Opción Múltiple");
+                entity.Property(e => e.Tipo).HasMaxLength(50).HasDefaultValue("Opcion Multiple");
 
                 entity.HasOne(e => e.Test)
                     .WithMany(t => t.PreguntasTest)
@@ -289,8 +289,8 @@ namespace PsyConnect.Data.Context
             modelBuilder.Entity<ResultadoInterpretacion>(entity =>
             {
                 entity.HasKey(e => e.ResultadoID);
-                entity.Property(e => e.Interpretación).HasColumnType("nvarchar(max)");
-                entity.Property(e => e.Recomendación).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Interpretacion).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Recomendacion).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.Nivel).HasMaxLength(50);
 
                 entity.HasOne(e => e.RespuestaTest)
@@ -298,9 +298,9 @@ namespace PsyConnect.Data.Context
                     .HasForeignKey<ResultadoInterpretacion>(e => e.RespuestaID)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(e => e.Psicólogo)
+                entity.HasOne(e => e.Psicologo)
                     .WithMany(p => p.ResultadosInterpretacion)
-                    .HasForeignKey(e => e.PsicólogoID)
+                    .HasForeignKey(e => e.PsicologoID)
                     .OnDelete(DeleteBehavior.SetNull);
             });
 
@@ -308,11 +308,11 @@ namespace PsyConnect.Data.Context
             modelBuilder.Entity<RecomendacionPersonalizada>(entity =>
             {
                 entity.HasKey(e => e.RecomendacionID);
-                entity.Property(e => e.Título).IsRequired().HasMaxLength(150);
-                entity.Property(e => e.Descripción).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Titulo).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.Descripcion).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.TipoRecurso).HasMaxLength(50);
                 entity.Property(e => e.URL).HasMaxLength(500);
-                entity.Property(e => e.FechaAsignación).HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.FechaAsignacion).HasDefaultValueSql("GETDATE()");
                 entity.Property(e => e.Vigente).HasDefaultValue(true);
 
                 entity.HasOne(e => e.Estudiante)
@@ -320,9 +320,9 @@ namespace PsyConnect.Data.Context
                     .HasForeignKey(e => e.EstudianteID)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(e => e.Psicólogo)
+                entity.HasOne(e => e.Psicologo)
                     .WithMany(p => p.RecomendacionesPersonalizadas)
-                    .HasForeignKey(e => e.PsicólogoID)
+                    .HasForeignKey(e => e.PsicologoID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.ResultadoInterpretacion)
@@ -337,7 +337,7 @@ namespace PsyConnect.Data.Context
                 entity.HasKey(e => e.CertificadoID);
                 entity.Property(e => e.TipoCertificado).HasMaxLength(50);
                 entity.Property(e => e.RutaArchivo).HasMaxLength(500);
-                entity.Property(e => e.FechaGeneración).HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.FechaGeneracion).HasDefaultValueSql("GETDATE()");
                 entity.Property(e => e.Descargado).HasDefaultValue(false);
 
                 entity.HasOne(e => e.Estudiante)
@@ -361,7 +361,7 @@ namespace PsyConnect.Data.Context
             {
                 entity.HasKey(e => e.HistoricoID);
                 entity.Property(e => e.TipoActividad).HasMaxLength(100);
-                entity.Property(e => e.Descripción).HasColumnType("nvarchar(max)");
+                entity.Property(e => e.Descripcion).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.FechaActividad).HasDefaultValueSql("GETDATE()");
 
                 entity.HasOne(e => e.Estudiante)
@@ -378,7 +378,7 @@ namespace PsyConnect.Data.Context
                 entity.Property(e => e.TestsMasUtilizados).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.NivelesRiesgo).HasColumnType("nvarchar(max)");
                 entity.Property(e => e.RutaArchivo).HasMaxLength(500);
-                entity.Property(e => e.FechaGeneración).HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.FechaGeneracion).HasDefaultValueSql("GETDATE()");
 
                 entity.HasOne(e => e.Administrador)
                 .WithMany()

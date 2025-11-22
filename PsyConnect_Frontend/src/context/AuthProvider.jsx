@@ -8,12 +8,12 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    // Verificar si hay sesión activa al cargar la app
+    // Verificar si hay sesion activa al cargar la app
     useEffect(() => {
         checkAuth();
     }, []);
 
-    // Función para verificar autenticación
+    // Funcion para verificar autenticacion
     const checkAuth = () => {
         try {
             const storedToken = localStorage.getItem('token');
@@ -25,14 +25,14 @@ export const AuthProvider = ({ children }) => {
                 setIsAuthenticated(true);
             }
         } catch (error) {
-            console.error('Error al verificar autenticación:', error);
+            console.error('Error al verificar autenticacion:', error);
             logout();
         } finally {
             setLoading(false);
         }
     };
 
-    // Función de login
+    // Funcion de login
     const login = async (email, password) => {
         try {
             const response = await authService.login(email, password);
@@ -55,18 +55,18 @@ export const AuthProvider = ({ children }) => {
 
                 return { success: true, data: userData };
             } else {
-                throw new Error('Respuesta inválida del servidor');
+                throw new Error('Respuesta invalida del servidor');
             }
         } catch (error) {
             console.error('Error en login:', error);
             return {
                 success: false,
-                error: error.response?.data?.detalle || 'Error al iniciar sesión'
+                error: error.response?.data?.detalle || 'Error al iniciar sesion'
             };
         }
     };
 
-    // Función de registro de estudiante
+    // Funcion de registro de estudiante
     const registrarEstudiante = async (datos) => {
         try {
             const response = await authService.registrarEstudiante(datos);
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Función de logout
+    // Funcion de logout
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
     };
 
-    // Función para actualizar el perfil del usuario
+    // Funcion para actualizar el perfil del usuario
     const updateUser = (updatedUser) => {
         setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify(updatedUser));

@@ -11,14 +11,14 @@ const Dashboard = () => {
     const quickActions = [
         {
             title: 'Realizar Test',
-            description: 'Completa tests psicológicos',
+            description: 'Completa tests psicologicos',
             icon: FileText,
             link: '/tests',
             color: 'bg-blue-500',
         },
         {
             title: 'Agendar Cita',
-            description: 'Agenda con un psicólogo',
+            description: 'Agenda con un psicologo',
             icon: Calendar,
             link: '/citas/agendar',
             color: 'bg-green-500',
@@ -58,7 +58,7 @@ const Dashboard = () => {
                 </p>
             </div>
 
-            {/* Estadísticas */}
+            {/* Estadisticas */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, index) => {
                     const Icon = stat.icon;
@@ -78,9 +78,9 @@ const Dashboard = () => {
                 })}
             </div>
 
-            {/* Acciones Rápidas */}
+            {/* Acciones Rapidas */}
             <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Acciones Rápidas</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">Acciones Rapidas</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {quickActions.map((action, index) => {
                         const Icon = action.icon;
@@ -105,10 +105,10 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Próximas Citas */}
+            {/* Proximas Citas */}
             <div>
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-gray-800">Próximas Citas</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">Proximas Citas</h2>
                     <Link to="/citas">
                         <Button variant="ghost" size="sm">Ver todas</Button>
                     </Link>
@@ -135,7 +135,7 @@ const Dashboard = () => {
                 <Card padding="lg">
                     <div className="text-center py-8">
                         <Lightbulb className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                        <p className="text-gray-600">No tienes recomendaciones aún</p>
+                        <p className="text-gray-600">No tienes recomendaciones aun</p>
                     </div>
                 </Card>
             </div>

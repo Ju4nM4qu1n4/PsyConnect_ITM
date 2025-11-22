@@ -12,7 +12,7 @@ namespace PsyConnect.Core.Entities.Respuestas
         public int TestID { get; set; }
         public int EstadoID { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime? FechaFinalización { get; set; }
+        public DateTime? FechaFinalizacion { get; set; }
         public int? PuntajeTotal { get; set; }
         public virtual Estudiante Estudiante { get; set; }
         public virtual Test Test { get; set; }

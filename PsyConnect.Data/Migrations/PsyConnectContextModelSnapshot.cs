@@ -22,7 +22,7 @@ namespace PsyConnect.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PsyConnect.Core.Entities.Auditoría.Historico", b =>
+            modelBuilder.Entity("PsyConnect.Core.Entities.Auditoria.Historico", b =>
                 {
                     b.Property<int>("HistoricoID")
                         .ValueGeneratedOnAdd()
@@ -30,7 +30,7 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoricoID"));
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -76,7 +76,7 @@ namespace PsyConnect.Data.Migrations
                     b.Property<DateTime?>("FechaDescarga")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaGeneración")
+                    b.Property<DateTime>("FechaGeneracion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -113,7 +113,7 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CitaID"));
 
-                    b.Property<int>("Duración")
+                    b.Property<int>("Duracion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(60);
@@ -144,14 +144,14 @@ namespace PsyConnect.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ObservacionesPsicólogo")
+                    b.Property<string>("ObservacionesPsicologo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PsicólogoID")
+                    b.Property<int>("PsicologoID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Ubicación")
+                    b.Property<string>("Ubicacion")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -166,7 +166,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasIndex("ModalidadID");
 
-                    b.HasIndex("PsicólogoID");
+                    b.HasIndex("PsicologoID");
 
                     b.ToTable("Citas");
                 });
@@ -200,7 +200,7 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModalidadID"));
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -226,19 +226,19 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecomendacionID"));
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EstudianteID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaAsignación")
+                    b.Property<DateTime>("FechaAsignacion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("PsicólogoID")
+                    b.Property<int>("PsicologoID")
                         .HasColumnType("int");
 
                     b.Property<int?>("ResultadoID")
@@ -249,7 +249,7 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Título")
+                    b.Property<string>("Titulo")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -268,7 +268,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasIndex("EstudianteID");
 
-                    b.HasIndex("PsicólogoID");
+                    b.HasIndex("PsicologoID");
 
                     b.HasIndex("ResultadoID");
 
@@ -295,7 +295,7 @@ namespace PsyConnect.Data.Migrations
                     b.Property<DateTime?>("FechaFin")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaGeneración")
+                    b.Property<DateTime>("FechaGeneracion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -307,7 +307,7 @@ namespace PsyConnect.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PsicólogoID")
+                    b.Property<int?>("PsicologoID")
                         .HasColumnType("int");
 
                     b.Property<string>("RutaArchivo")
@@ -328,7 +328,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasIndex("AdministradorID");
 
-                    b.HasIndex("PsicólogoID");
+                    b.HasIndex("PsicologoID");
 
                     b.ToTable("Reportes");
                 });
@@ -399,7 +399,7 @@ namespace PsyConnect.Data.Migrations
                     b.Property<int>("EstudianteID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("FechaFinalización")
+                    b.Property<DateTime?>("FechaFinalizacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaInicio")
@@ -432,10 +432,10 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultadoID"));
 
-                    b.Property<DateTime?>("FechaEvaluación")
+                    b.Property<DateTime?>("FechaEvaluacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Interpretación")
+                    b.Property<string>("Interpretacion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -444,10 +444,10 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("PsicólogoID")
+                    b.Property<int?>("PsicologoID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Recomendación")
+                    b.Property<string>("Recomendacion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -456,7 +456,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasKey("ResultadoID");
 
-                    b.HasIndex("PsicólogoID");
+                    b.HasIndex("PsicologoID");
 
                     b.HasIndex("RespuestaID")
                         .IsUnique();
@@ -519,7 +519,7 @@ namespace PsyConnect.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PreguntaID"));
 
-                    b.Property<int>("Número")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.Property<int?>("Puntaje")
@@ -537,7 +537,7 @@ namespace PsyConnect.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("Opción Múltiple");
+                        .HasDefaultValue("Opcion Multiple");
 
                     b.HasKey("PreguntaID");
 
@@ -562,11 +562,11 @@ namespace PsyConnect.Data.Migrations
                     b.Property<int>("CantidadPreguntas")
                         .HasColumnType("int");
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaCreación")
+                    b.Property<DateTime>("FechaCreacion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -579,7 +579,7 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("PsicólogoID")
+                    b.Property<int>("PsicologoID")
                         .HasColumnType("int");
 
                     b.Property<int>("TiempoEstimado")
@@ -592,7 +592,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasIndex("ModalidadTestID");
 
-                    b.HasIndex("PsicólogoID");
+                    b.HasIndex("PsicologoID");
 
                     b.HasIndex("TipoTestID");
 
@@ -612,7 +612,7 @@ namespace PsyConnect.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -642,7 +642,7 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Dirección")
+                    b.Property<string>("Direccion")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -650,12 +650,12 @@ namespace PsyConnect.Data.Migrations
                     b.Property<DateTime?>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Género")
+                    b.Property<string>("Genero")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Matrícula")
+                    b.Property<string>("Matricula")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -668,7 +668,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.HasKey("EstudianteID");
 
-                    b.HasIndex("Matrícula")
+                    b.HasIndex("Matricula")
                         .IsUnique();
 
                     b.HasIndex("UsuarioID");
@@ -676,15 +676,15 @@ namespace PsyConnect.Data.Migrations
                     b.ToTable("Estudiantes");
                 });
 
-            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicólogo", b =>
+            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicologo", b =>
                 {
-                    b.Property<int>("PsicólogoID")
+                    b.Property<int>("PsicologoID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PsicólogoID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PsicologoID"));
 
-                    b.Property<string>("Cédula")
+                    b.Property<string>("Cedula")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -715,9 +715,9 @@ namespace PsyConnect.Data.Migrations
                     b.Property<int>("UsuarioID")
                         .HasColumnType("int");
 
-                    b.HasKey("PsicólogoID");
+                    b.HasKey("PsicologoID");
 
-                    b.HasIndex("Cédula")
+                    b.HasIndex("Cedula")
                         .IsUnique();
 
                     b.HasIndex("UsuarioID");
@@ -738,7 +738,7 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Contraseña")
+                    b.Property<string>("Contrasena")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -763,7 +763,7 @@ namespace PsyConnect.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Teléfono")
+                    b.Property<string>("Telefono")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -784,7 +784,7 @@ namespace PsyConnect.Data.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("PsyConnect.Core.Entities.Auditoría.Historico", b =>
+            modelBuilder.Entity("PsyConnect.Core.Entities.Auditoria.Historico", b =>
                 {
                     b.HasOne("PsyConnect.Core.Entities.Usuarios.Estudiante", "Estudiante")
                         .WithMany("Historicos")
@@ -839,9 +839,9 @@ namespace PsyConnect.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicólogo", "Psicólogo")
+                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicologo", "Psicologo")
                         .WithMany("Citas")
-                        .HasForeignKey("PsicólogoID")
+                        .HasForeignKey("PsicologoID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -851,7 +851,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.Navigation("ModalidadCita");
 
-                    b.Navigation("Psicólogo");
+                    b.Navigation("Psicologo");
                 });
 
             modelBuilder.Entity("PsyConnect.Core.Entities.Recomendaciones.RecomendacionPersonalizada", b =>
@@ -862,9 +862,9 @@ namespace PsyConnect.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicólogo", "Psicólogo")
+                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicologo", "Psicologo")
                         .WithMany("RecomendacionesPersonalizadas")
-                        .HasForeignKey("PsicólogoID")
+                        .HasForeignKey("PsicologoID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -875,7 +875,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.Navigation("Estudiante");
 
-                    b.Navigation("Psicólogo");
+                    b.Navigation("Psicologo");
 
                     b.Navigation("ResultadoInterpretacion");
                 });
@@ -887,13 +887,13 @@ namespace PsyConnect.Data.Migrations
                         .HasForeignKey("AdministradorID")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicólogo", "Psicólogo")
+                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicologo", "Psicologo")
                         .WithMany("Reportes")
-                        .HasForeignKey("PsicólogoID");
+                        .HasForeignKey("PsicologoID");
 
                     b.Navigation("Administrador");
 
-                    b.Navigation("Psicólogo");
+                    b.Navigation("Psicologo");
                 });
 
             modelBuilder.Entity("PsyConnect.Core.Entities.Respuestas.DetalleRespuestaTest", b =>
@@ -951,9 +951,9 @@ namespace PsyConnect.Data.Migrations
 
             modelBuilder.Entity("PsyConnect.Core.Entities.Resultados.ResultadoInterpretacion", b =>
                 {
-                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicólogo", "Psicólogo")
+                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicologo", "Psicologo")
                         .WithMany("ResultadosInterpretacion")
-                        .HasForeignKey("PsicólogoID")
+                        .HasForeignKey("PsicologoID")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("PsyConnect.Core.Entities.Respuestas.RespuestaTest", "RespuestaTest")
@@ -962,7 +962,7 @@ namespace PsyConnect.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Psicólogo");
+                    b.Navigation("Psicologo");
 
                     b.Navigation("RespuestaTest");
                 });
@@ -997,9 +997,9 @@ namespace PsyConnect.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicólogo", "Psicólogo")
+                    b.HasOne("PsyConnect.Core.Entities.Usuarios.Psicologo", "Psicologo")
                         .WithMany("Tests")
-                        .HasForeignKey("PsicólogoID")
+                        .HasForeignKey("PsicologoID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1011,7 +1011,7 @@ namespace PsyConnect.Data.Migrations
 
                     b.Navigation("ModalidadTest");
 
-                    b.Navigation("Psicólogo");
+                    b.Navigation("Psicologo");
 
                     b.Navigation("TipoTest");
                 });
@@ -1027,7 +1027,7 @@ namespace PsyConnect.Data.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicólogo", b =>
+            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicologo", b =>
                 {
                     b.HasOne("PsyConnect.Core.Entities.Usuarios.Usuario", "Usuario")
                         .WithMany()
@@ -1115,7 +1115,7 @@ namespace PsyConnect.Data.Migrations
                     b.Navigation("RespuestasTest");
                 });
 
-            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicólogo", b =>
+            modelBuilder.Entity("PsyConnect.Core.Entities.Usuarios.Psicologo", b =>
                 {
                     b.Navigation("Citas");
 

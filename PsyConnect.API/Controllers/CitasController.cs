@@ -113,7 +113,7 @@ namespace PsyConnect.API.Controllers
                 var citas = await _citaService.ObtenerCitasProximasAsync();
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Citas próximas obtenidas",
+                    Mensaje = "Citas proximas obtenidas",
                     Datos = citas
                 });
             }

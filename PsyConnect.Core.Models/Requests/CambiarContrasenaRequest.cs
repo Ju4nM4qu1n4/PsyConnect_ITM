@@ -1,6 +1,6 @@
 ﻿namespace PsyConnect.Core.Models.Requests
 {
-    public class CambiarContraseñaRequest
+    public class CambiarContrasenaRequest
     {
         public int UsuarioId { get; set; }
         public string ContrasenaActual { get; set; }

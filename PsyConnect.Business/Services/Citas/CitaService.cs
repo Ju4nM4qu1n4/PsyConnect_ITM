@@ -35,23 +35,23 @@ namespace PsyConnect.Business.Services.Citas
 
            
             if (request.FechaHora < DateTime.Now.AddHours(24))
-                throw new Exception("Debes agendar con al menos 24 horas de anticipación");
+                throw new Exception("Debes agendar con al menos 24 horas de anticipacion");
 
             
             var citasExistentes = await _citaRepository.GetCitasPorEstudianteAsync(request.EstudianteId);
             if (citasExistentes.Any(c => c.FechaHora.Date == request.FechaHora.Date && c.EstadoID != 5))
-                throw new Exception("Ya tienes una cita agendada para ese día");
+                throw new Exception("Ya tienes una cita agendada para ese dia");
 
           
             var cita = new Cita
             {
                 EstudianteID = request.EstudianteId,
-                PsicólogoID = request.PsicologoId,
+                PsicologoID = request.PsicologoId,
                 ModalidadID = request.ModalidadId,
                 EstadoID = 1,
                 FechaHora = request.FechaHora,
-                Duración = 60,
-                Ubicación = request.Ubicacion,
+                Duracion = 60,
+                Ubicacion = request.Ubicacion,
                 NotasEstudiante = request.Notas,
                 FechaRegistro = DateTime.Now
             };

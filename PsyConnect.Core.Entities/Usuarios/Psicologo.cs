@@ -4,11 +4,11 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace PsyConnect.Core.Entities.Usuarios
 {
-    public class Psicólogo
+    public class Psicologo
     {
-        public int PsicólogoID { get; set; }
+        public int PsicologoID { get; set; }
         public int UsuarioID { get; set; }
-        public string Cédula { get; set; }
+        public string Cedula { get; set; }
         public string Especialidad { get; set; }
         public string Licencia { get; set; }
         public TimeSpan HoraInicioJornada { get; set; }

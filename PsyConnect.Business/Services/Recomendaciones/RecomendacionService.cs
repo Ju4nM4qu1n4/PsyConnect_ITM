@@ -36,13 +36,13 @@ namespace PsyConnect.Business.Services.Recomendaciones
             var recomendacion = new RecomendacionPersonalizada
             {
                 EstudianteID = request.EstudianteId,
-                PsicólogoID = request.PsicologoId,
+                PsicologoID = request.PsicologoId,
                 ResultadoID = request.ResultadoId,
-                Título = request.Título,
-                Descripción = request.Descripción,
+                Titulo = request.Titulo,
+                Descripcion = request.Descripcion,
                 TipoRecurso = request.TipoRecurso,
                 URL = request.URL,
-                FechaAsignación = DateTime.Now,
+                FechaAsignacion = DateTime.Now,
                 Vigente = true
             };
 
@@ -68,7 +68,7 @@ namespace PsyConnect.Business.Services.Recomendaciones
         {
             var recomendacion = await _recomendacionRepository.GetByIdAsync(recomendacionId);
             if (recomendacion == null)
-                throw new Exception("Recomendación no encontrada");
+                throw new Exception("Recomendacion no encontrada");
 
             recomendacion.Vigente = false;
             _recomendacionRepository.Update(recomendacion);

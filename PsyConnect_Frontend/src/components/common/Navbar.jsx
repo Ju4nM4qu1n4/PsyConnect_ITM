@@ -98,7 +98,7 @@ const Navbar = () => {
                                 className="flex items-center gap-2 px-4 py-3 text-red-600 w-full"
                             >
                                 <LogOut className="w-5 h-5" />
-                                <span>Cerrar Sesión</span>
+                                <span>Cerrar Sesion</span>
                             </button>
                         </div>
                     </div>

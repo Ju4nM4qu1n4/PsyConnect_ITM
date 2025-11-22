@@ -19,7 +19,7 @@ namespace PsyConnect.Data.Repositories.Implementations
         {
             return await _dbSet
                 .Where(c => c.EstudianteID == estudianteId)
-                .Include(c => c.Psicólogo)
+                .Include(c => c.Psicologo)
                 .Include(c => c.ModalidadCita)
                 .Include(c => c.EstadoCita)
                 .ToListAsync();
@@ -28,7 +28,7 @@ namespace PsyConnect.Data.Repositories.Implementations
         public async Task<IEnumerable<Cita>> GetCitasPorPsicologoAsync(int psicologoId)
         {
             return await _dbSet
-                .Where(c => c.PsicólogoID == psicologoId)
+                .Where(c => c.PsicologoID == psicologoId)
                 .Include(c => c.Estudiante)
                 .Include(c => c.ModalidadCita)
                 .Include(c => c.EstadoCita)
@@ -40,7 +40,7 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet
                 .Where(c => c.FechaHora > fecha && c.EstadoID != 5) // 5 = Cancelada
                 .Include(c => c.Estudiante)
-                .Include(c => c.Psicólogo)
+                .Include(c => c.Psicologo)
                 .OrderBy(c => c.FechaHora)
                 .ToListAsync();
         }
@@ -49,14 +49,14 @@ namespace PsyConnect.Data.Repositories.Implementations
         {
             return await _dbSet
                 .Where(c => c.EstudianteID == estudianteId && c.EstadoID == 4) // 4 = Completada
-                .Include(c => c.Psicólogo)
+                .Include(c => c.Psicologo)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Cita>> GetCitasDisponiblesPorPsicologoAsync(int psicologoId, DateTime fecha)
         {
             return await _dbSet
-                .Where(c => c.PsicólogoID == psicologoId && c.FechaHora.Date == fecha.Date && c.EstadoID == 1)
+                .Where(c => c.PsicologoID == psicologoId && c.FechaHora.Date == fecha.Date && c.EstadoID == 1)
                 .ToListAsync();
         }
 
@@ -65,7 +65,7 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet
                 .Where(c => c.ModalidadID == modalidadId)
                 .Include(c => c.Estudiante)
-                .Include(c => c.Psicólogo)
+                .Include(c => c.Psicologo)
                 .ToListAsync();
         }
 
@@ -74,7 +74,7 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet
                 .Where(c => c.EstadoID == estadoId)
                 .Include(c => c.Estudiante)
-                .Include(c => c.Psicólogo)
+                .Include(c => c.Psicologo)
                 .ToListAsync();
         }
     }

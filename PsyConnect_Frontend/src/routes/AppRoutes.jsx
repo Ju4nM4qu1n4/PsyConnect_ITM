@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthProvider';
 import PrivateRoute from './PrivateRoute';
 
-// Importar páginas
+// Importar paginas
 import Login from '../pages/Login';
 import RegistroEstudiante from '../pages/RegistroEstudiante';
 import Dashboard from '../pages/Dashboard';
@@ -16,7 +16,7 @@ const AppRoutes = () => {
         <BrowserRouter>
             <AuthProvider>
                 <Routes>
-                    {/* Rutas públicas */}
+                    {/* Rutas publicas */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<RegistroEstudiante />} />
 

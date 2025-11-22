@@ -20,7 +20,7 @@ const Modal = ({
         return () => window.removeEventListener('keydown', handleEsc);
     }, [isOpen, onClose]);
 
-    // Prevenir scroll cuando el modal está abierto
+    // Prevenir scroll cuando el modal esta abierto
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';

@@ -11,6 +11,6 @@ namespace PsyConnect.Business.Services.Usuarios
         Task<UsuarioDTO> RegistrarPsicologoAsync(RegistrarPsicologoRequest request);
         Task<AuthResponse> AutenticarAsync(LoginRequest request);
         Task<UsuarioDTO> ObtenerPerfilAsync(int usuarioId);
-        Task CambiarContraseñaAsync(int usuarioId, string contraseñaActual, string nuevaContraseña);
+        Task CambiarContrasenaAsync(int usuarioId, string contrasenaActual, string nuevaContrasena);
     }
 }

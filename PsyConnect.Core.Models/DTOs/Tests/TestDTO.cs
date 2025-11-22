@@ -6,7 +6,7 @@ namespace PsyConnect.Core.Models.DTOs.Tests
     {
         public int TestID { get; set; }
         public string NombreTest { get; set; }
-        public string Descripción { get; set; }
+        public string Descripcion { get; set; }
         public string TipoTestNombre { get; set; }
         public string ModalidadNombre { get; set; }
         public int CantidadPreguntas { get; set; }

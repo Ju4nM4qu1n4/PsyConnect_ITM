@@ -6,7 +6,7 @@ namespace PsyConnect.Core.Entities.Tests
     {
         public int PreguntaID { get; set; }
         public int TestID { get; set; }
-        public int Número { get; set; }
+        public int Numero { get; set; }
         public string Texto { get; set; }
         public string Tipo { get; set; } 
         public int? Puntaje { get; set; }

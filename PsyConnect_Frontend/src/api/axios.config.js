@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Crear instancia de axios con configuración base
+// Crear instancia de axios con configuracion base
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL, // https://localhost:7197/api
     headers: {
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     timeout: 10000, // 10 segundos
 });
 
-// Interceptor para agregar el token en cada petición
+// Interceptor para agregar el token en cada peticion
 axiosInstance.interceptors.request.use(
     (config) => {
         // Obtener token del localStorage
@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        // Si el token expiró o es inválido (401)
+        // Si el token expiro o es invalido (401)
         if (error.response?.status === 401) {
             // Limpiar token y redirigir al login
             localStorage.removeItem('token');

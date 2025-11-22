@@ -41,7 +41,7 @@ namespace PsyConnect.Business.Services.Certificados
                 EstudianteID = respuesta.EstudianteID,
                 RespuestaTestID = respuestaId,
                 TipoCertificado = "Test",
-                FechaGeneración = DateTime.Now,
+                FechaGeneracion = DateTime.Now,
                 RutaArchivo = $"/certificados/test_{respuestaId}_{DateTime.Now.Ticks}.pdf",
                 Descargado = false
             };
@@ -66,7 +66,7 @@ namespace PsyConnect.Business.Services.Certificados
                 EstudianteID = cita.EstudianteID,
                 CitaID = citaId,
                 TipoCertificado = "Cita",
-                FechaGeneración = DateTime.Now,
+                FechaGeneracion = DateTime.Now,
                 RutaArchivo = $"/certificados/cita_{citaId}_{DateTime.Now.Ticks}.pdf",
                 Descargado = false
             };

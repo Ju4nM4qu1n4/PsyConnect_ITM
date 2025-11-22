@@ -12,7 +12,7 @@ namespace PsyConnect.Core.Entities.Certificados
         public int? RespuestaTestID { get; set; }
         public int? CitaID { get; set; }
         public string TipoCertificado { get; set; } 
-        public DateTime FechaGeneración { get; set; }
+        public DateTime FechaGeneracion { get; set; }
         public string RutaArchivo { get; set; }
         public bool Descargado { get; set; }
         public DateTime? FechaDescarga { get; set; }

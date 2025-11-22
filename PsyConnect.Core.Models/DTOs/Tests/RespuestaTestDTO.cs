@@ -8,7 +8,7 @@ namespace PsyConnect.Core.Models.DTOs.Tests
         public int EstudianteID { get; set; }
         public int TestID { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime? FechaFinalización { get; set; }
+        public DateTime? FechaFinalizacion { get; set; }
         public int? PuntajeTotal { get; set; }
         public string EstadoNombre { get; set; }
     }

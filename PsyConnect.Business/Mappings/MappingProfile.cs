@@ -27,7 +27,7 @@ namespace PsyConnect.Business.Mappings
             CreateMap<Estudiante, EstudianteDTO>()
                 .ReverseMap();
 
-            CreateMap<Psicólogo, PsicologoDTO>()
+            CreateMap<Psicologo, PsicologoDTO>()
                 .ReverseMap();
 
             CreateMap<RegistrarEstudianteRequest, Usuario>();

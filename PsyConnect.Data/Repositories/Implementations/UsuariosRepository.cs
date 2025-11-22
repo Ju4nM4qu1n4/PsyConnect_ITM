@@ -17,9 +17,9 @@ namespace PsyConnect.Data.Repositories.Implementations
             return await _dbSet.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<Usuario> GetUsuarioPorEmailYContraseñaAsync(string email, string contraseña)
+        public async Task<Usuario> GetUsuarioPorEmailYContrasenaAsync(string email, string contrasena)
         {
-            return await _dbSet.FirstOrDefaultAsync(u => u.Email == email && u.Contraseña == contraseña);
+            return await _dbSet.FirstOrDefaultAsync(u => u.Email == email && u.Contrasena == contrasena);
         }
     }
 }

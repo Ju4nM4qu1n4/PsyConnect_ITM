@@ -5,7 +5,7 @@ const authService = {
     login: async (email, password) => {
         const response = await axiosInstance.post('/Usuarios/login', {
             email: email,
-            contraseña: password,
+            contrasena: password,
         });
         return response.data;
     },
@@ -14,28 +14,28 @@ const authService = {
     registrarEstudiante: async (datos) => {
         const response = await axiosInstance.post('/Usuarios/registro-estudiante', {
             email: datos.email,
-            contraseña: datos.password,
+            contrasena: datos.password,
             nombre: datos.nombre,
             apellido: datos.apellido,
-            teléfono: datos.telefono,
-            matrícula: datos.matricula,
+            telefono: datos.telefono,
+            matricula: datos.matricula,
             carrera: datos.carrera,
             semestre: parseInt(datos.semestre),
-            género: datos.genero,
-            dirección: datos.direccion,
+            genero: datos.genero,
+            direccion: datos.direccion,
         });
         return response.data;
     },
 
-    // Registro de psicólogo
+    // Registro de psicologo
     registrarPsicologo: async (datos) => {
         const response = await axiosInstance.post('/Usuarios/registro-psicologo', {
             email: datos.email,
-            contraseña: datos.password,
+            contrasena: datos.password,
             nombre: datos.nombre,
             apellido: datos.apellido,
-            teléfono: datos.telefono,
-            cédula: datos.cedula,
+            telefono: datos.telefono,
+            cedula: datos.cedula,
             especialidad: datos.especialidad,
             licencia: datos.licencia,
         });
@@ -48,12 +48,12 @@ const authService = {
         return response.data;
     },
 
-    // Cambiar contraseña
-    cambiarContraseña: async (usuarioId, contraseñaActual, nuevaContraseña) => {
-        const response = await axiosInstance.post('/Usuarios/cambiar-contraseña', {
+    // Cambiar contrasena
+    cambiarContrasena: async (usuarioId, contrasenaActual, nuevaContrasena) => {
+        const response = await axiosInstance.post('/Usuarios/cambiar-contrasena', {
             usuarioId: usuarioId,
-            contrasenaActual: contraseñaActual,
-            nuevaContrasena: nuevaContraseña,
+            contrasenaActual: contrasenaActual,
+            nuevaContrasena: nuevaContrasena,
         });
         return response.data;
     },

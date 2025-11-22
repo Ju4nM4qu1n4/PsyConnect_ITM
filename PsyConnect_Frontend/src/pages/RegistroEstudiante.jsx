@@ -45,15 +45,15 @@ const RegistroEstudiante = () => {
         if (!formData.nombre.trim()) newErrors.nombre = 'El nombre es requerido';
         if (!formData.apellido.trim()) newErrors.apellido = 'El apellido es requerido';
         if (!formData.email.trim()) newErrors.email = 'El email es requerido';
-        if (!formData.password) newErrors.password = 'La contraseña es requerida';
-        if (formData.password.length < 8) newErrors.password = 'La contraseña debe tener al menos 8 caracteres';
+        if (!formData.password) newErrors.password = 'La contrasena es requerida';
+        if (formData.password.length < 8) newErrors.password = 'La contrasena debe tener al menos 8 caracteres';
         if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = 'Las contraseñas no coinciden';
+            newErrors.confirmPassword = 'Las contrasenas no coinciden';
         }
-        if (!formData.matricula.trim()) newErrors.matricula = 'La matrícula es requerida';
+        if (!formData.matricula.trim()) newErrors.matricula = 'La matricula es requerida';
         if (!formData.carrera.trim()) newErrors.carrera = 'La carrera es requerida';
         if (!formData.semestre) newErrors.semestre = 'El semestre es requerido';
-        if (!formData.genero) newErrors.genero = 'El género es requerido';
+        if (!formData.genero) newErrors.genero = 'El genero es requerido';
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -132,10 +132,10 @@ const RegistroEstudiante = () => {
                     )}
 
                     <form onSubmit={handleSubmit}>
-                        {/* Información Personal */}
+                        {/* Informacion Personal */}
                         <div className="mb-6">
                             <h3 className="text-lg font-semibold text-gray-700 mb-4">
-                                Información Personal
+                                Informacion Personal
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Input
@@ -166,7 +166,7 @@ const RegistroEstudiante = () => {
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Input
-                                    label="Correo Electrónico"
+                                    label="Correo Electronico"
                                     type="email"
                                     name="email"
                                     value={formData.email}
@@ -176,7 +176,7 @@ const RegistroEstudiante = () => {
                                     required
                                 />
                                 <Input
-                                    label="Teléfono"
+                                    label="Telefono"
                                     type="tel"
                                     name="telefono"
                                     value={formData.telefono}
@@ -187,14 +187,14 @@ const RegistroEstudiante = () => {
                             </div>
                         </div>
 
-                        {/* Información Académica */}
+                        {/* Informacion Academica */}
                         <div className="mb-6">
                             <h3 className="text-lg font-semibold text-gray-700 mb-4">
-                                Información Académica
+                                Informacion Academica
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Input
-                                    label="Matrícula"
+                                    label="Matricula"
                                     name="matricula"
                                     value={formData.matricula}
                                     onChange={handleChange}
@@ -207,7 +207,7 @@ const RegistroEstudiante = () => {
                                     name="carrera"
                                     value={formData.carrera}
                                     onChange={handleChange}
-                                    placeholder="Ej: Ingeniería de Sistemas"
+                                    placeholder="Ej: Ingenieria de Sistemas"
                                     icon={BookOpen}
                                     error={errors.carrera}
                                     required
@@ -234,7 +234,7 @@ const RegistroEstudiante = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        Género <span className="text-red-500">*</span>
+                                        Genero <span className="text-red-500">*</span>
                                     </label>
                                     <select
                                         name="genero"
@@ -256,7 +256,7 @@ const RegistroEstudiante = () => {
                             </div>
                             <div className="mt-4">
                                 <Input
-                                    label="Dirección"
+                                    label="Direccion"
                                     name="direccion"
                                     value={formData.direccion}
                                     onChange={handleChange}
@@ -272,18 +272,18 @@ const RegistroEstudiante = () => {
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Input
-                                    label="Contraseña"
+                                    label="Contrasena"
                                     type="password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    placeholder="Mínimo 8 caracteres"
+                                    placeholder="Minimo 8 caracteres"
                                     icon={Lock}
                                     error={errors.password}
                                     required
                                 />
                                 <Input
-                                    label="Confirmar Contraseña"
+                                    label="Confirmar Contrasena"
                                     type="password"
                                     name="confirmPassword"
                                     value={formData.confirmPassword}

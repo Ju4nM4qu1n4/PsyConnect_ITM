@@ -25,7 +25,7 @@ namespace PsyConnect.API.Controllers
                 var recomendacion = await _recomendacionService.AsignarRecomendacionAsync(request);
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Recomendación asignada correctamente",
+                    Mensaje = "Recomendacion asignada correctamente",
                     Datos = recomendacion
                 });
             }
@@ -33,7 +33,7 @@ namespace PsyConnect.API.Controllers
             {
                 return BadRequest(new ErrorResponse
                 {
-                    Mensaje = "Error al asignar recomendación",
+                    Mensaje = "Error al asignar recomendacion",
                     Detalle = ex.Message
                 });
             }
@@ -91,14 +91,14 @@ namespace PsyConnect.API.Controllers
                 await _recomendacionService.EliminarRecomendacionAsync(recomendacionId);
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Recomendación eliminada correctamente"
+                    Mensaje = "Recomendacion eliminada correctamente"
                 });
             }
             catch (System.Exception ex)
             {
                 return BadRequest(new ErrorResponse
                 {
-                    Mensaje = "Error al eliminar recomendación",
+                    Mensaje = "Error al eliminar recomendacion",
                     Detalle = ex.Message
                 });
             }

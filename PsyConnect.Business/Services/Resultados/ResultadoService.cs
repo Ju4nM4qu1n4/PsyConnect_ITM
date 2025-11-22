@@ -42,9 +42,9 @@ namespace PsyConnect.Business.Services.Resultados
             {
                 RespuestaID = respuestaId,
                 Nivel = nivel,
-                Interpretación = interpretacion,
-                Recomendación = recomendacion,
-                FechaEvaluación = DateTime.Now
+                Interpretacion = interpretacion,
+                Recomendacion = recomendacion,
+                FechaEvaluacion = DateTime.Now
             };
 
             await _resultadoRepository.AddAsync(resultado);
@@ -70,7 +70,7 @@ namespace PsyConnect.Business.Services.Resultados
 
         private string DeterminarNivel(int puntaje)
         {
-            if (puntaje >= 80) return "Crítico";
+            if (puntaje >= 80) return "Critico";
             if (puntaje >= 60) return "Alto";
             if (puntaje >= 40) return "Medio";
             return "Bajo";
@@ -80,10 +80,10 @@ namespace PsyConnect.Business.Services.Resultados
         {
             return nivel switch
             {
-                "Crítico" => "Presenta síntomas muy pronunciados que requieren atención inmediata.",
-                "Alto" => "Presenta síntomas significativos que se recomienda abordar.",
-                "Medio" => "Presenta algunos síntomas que pueden manejarse con seguimiento.",
-                _ => "Presenta síntomas mínimos."
+                "Critico" => "Presenta sintomas muy pronunciados que requieren atencion inmediata.",
+                "Alto" => "Presenta sintomas significativos que se recomienda abordar.",
+                "Medio" => "Presenta algunos sintomas que pueden manejarse con seguimiento.",
+                _ => "Presenta sintomas minimos."
             };
         }
 
@@ -91,10 +91,10 @@ namespace PsyConnect.Business.Services.Resultados
         {
             return nivel switch
             {
-                "Crítico" => "Se recomienda sesión urgente con psicólogo. Considera buscar ayuda profesional.",
-                "Alto" => "Se recomienda seguimiento con psicólogo y técnicas de autocuidado.",
-                "Medio" => "Se sugiere mantener seguimiento y practicar técnicas de bienestar.",
-                _ => "Mantén hábitos saludables y bienestar general."
+                "Critico" => "Se recomienda sesion urgente con psicologo. Considera buscar ayuda profesional.",
+                "Alto" => "Se recomienda seguimiento con psicologo y tecnicas de autocuidado.",
+                "Medio" => "Se sugiere mantener seguimiento y practicar tecnicas de bienestar.",
+                _ => "Manten habitos saludables y bienestar general."
             };
         }
     }

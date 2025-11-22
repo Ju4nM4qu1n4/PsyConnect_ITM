@@ -30,20 +30,20 @@ namespace PsyConnect.Business.Services.Usuarios
             
             var usuarioExistente = await _usuarioRepository.GetUsuarioPorEmailAsync(request.Email);
             if (usuarioExistente != null)
-                throw new Exception("El email ya está registrado");
+                throw new Exception("El email ya esta registrado");
 
             
-            ValidarContraseña(request.Contraseña);
+            ValidarContrasena(request.Contrasena);
 
            
             var usuario = new Usuario
             {
                 Email = request.Email,
-                Contraseña = EncriptarContraseña(request.Contraseña),
+                Contrasena = EncriptarContrasena(request.Contrasena),
                 Nombre = request.Nombre,
                 Apellido = request.Apellido,
                 TipoUsuario = "Estudiante",
-                Teléfono = request.Teléfono,
+                Telefono = request.Telefono,
                 FechaRegistro = DateTime.Now,
                 Estado = true
 
@@ -56,11 +56,11 @@ namespace PsyConnect.Business.Services.Usuarios
             var estudiante = new Estudiante
             {
                 UsuarioID = usuario.UsuarioID,
-                Matrícula = request.Matrícula,
+                Matricula = request.Matricula,
                 Carrera = request.Carrera,
                 Semestre = request.Semestre,
-                Género = request.Género,
-                Dirección = request.Dirección
+                Genero = request.Genero,
+                Direccion = request.Direccion
             };
 
             await _estudianteRepository.AddAsync(estudiante);
@@ -74,20 +74,20 @@ namespace PsyConnect.Business.Services.Usuarios
            
             var usuarioExistente = await _usuarioRepository.GetUsuarioPorEmailAsync(request.Email);
             if (usuarioExistente != null)
-                throw new Exception("El email ya está registrado");
+                throw new Exception("El email ya esta registrado");
 
           
-            ValidarContraseña(request.Contraseña);
+            ValidarContrasena(request.Contrasena);
 
           
             var usuario = new Usuario
             {
                 Email = request.Email,
-                Contraseña = EncriptarContraseña(request.Contraseña),
+                Contrasena = EncriptarContrasena(request.Contrasena),
                 Nombre = request.Nombre,
                 Apellido = request.Apellido,
-                TipoUsuario = "Psicólogo",
-                Teléfono = request.Teléfono,
+                TipoUsuario = "Psicologo",
+                Telefono = request.Telefono,
                 FechaRegistro = DateTime.Now,
                 Estado = true
             };
@@ -101,8 +101,8 @@ namespace PsyConnect.Business.Services.Usuarios
         public async Task<AuthResponse> AutenticarAsync(LoginRequest request)
         {
             var usuario = await _usuarioRepository.GetUsuarioPorEmailAsync(request.Email);
-            if (usuario == null || !VerificarContraseña(request.Contraseña, usuario.Contraseña))
-                throw new Exception("Email o contraseña inválidos");
+            if (usuario == null || !VerificarContrasena(request.Contrasena, usuario.Contrasena))
+                throw new Exception("Email o contrasena invalidos");
 
             if (!usuario.Estado)
                 throw new Exception("Usuario desactivado");
@@ -130,37 +130,37 @@ namespace PsyConnect.Business.Services.Usuarios
             return _mapper.Map<UsuarioDTO>(usuario);
         }
 
-        public async Task CambiarContraseñaAsync(int usuarioId, string contraseñaActual, string nuevaContraseña)
+        public async Task CambiarContrasenaAsync(int usuarioId, string contrasenaActual, string nuevaContrasena)
         {
             var usuario = await _usuarioRepository.GetByIdAsync(usuarioId);
             if (usuario == null)
                 throw new Exception("Usuario no encontrado");
 
-            if (!VerificarContraseña(contraseñaActual, usuario.Contraseña))
-                throw new Exception("Contraseña actual inválida");
+            if (!VerificarContrasena(contrasenaActual, usuario.Contrasena))
+                throw new Exception("Contrasena actual invalida");
 
-            ValidarContraseña(nuevaContraseña);
+            ValidarContrasena(nuevaContrasena);
 
-            usuario.Contraseña = EncriptarContraseña(nuevaContraseña);
+            usuario.Contrasena = EncriptarContrasena(nuevaContrasena);
             _usuarioRepository.Update(usuario);
             await _usuarioRepository.SaveChangesAsync();
         }
 
     
-        private void ValidarContraseña(string contraseña)
+        private void ValidarContrasena(string contrasena)
         {
-            if (string.IsNullOrWhiteSpace(contraseña) || contraseña.Length < 8)
-                throw new Exception("Contraseña debe tener al menos 8 caracteres");
+            if (string.IsNullOrWhiteSpace(contrasena) || contrasena.Length < 8)
+                throw new Exception("Contrasena debe tener al menos 8 caracteres");
         }
 
-        private string EncriptarContraseña(string contraseña)
+        private string EncriptarContrasena(string contrasena)
         {
-            return BCrypt.Net.BCrypt.HashPassword(contraseña);
+            return BCrypt.Net.BCrypt.HashPassword(contrasena);
         }
 
-        private bool VerificarContraseña(string contraseña, string hash)
+        private bool VerificarContrasena(string contrasena, string hash)
         {
-            return BCrypt.Net.BCrypt.Verify(contraseña, hash);
+            return BCrypt.Net.BCrypt.Verify(contrasena, hash);
         }
 
         private string GenerarToken(Usuario usuario)

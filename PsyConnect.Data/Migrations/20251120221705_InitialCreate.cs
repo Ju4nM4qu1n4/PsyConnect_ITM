@@ -44,7 +44,7 @@ namespace PsyConnect.Data.Migrations
                     ModalidadID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descripción = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    Descripcion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,7 +71,7 @@ namespace PsyConnect.Data.Migrations
                     TipoTestID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descripción = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -86,11 +86,11 @@ namespace PsyConnect.Data.Migrations
                     UsuarioID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Contraseña = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Contrasena = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     TipoUsuario = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Teléfono = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Estado = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     UltimoAcceso = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -107,12 +107,12 @@ namespace PsyConnect.Data.Migrations
                     EstudianteID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioID = table.Column<int>(type: "int", nullable: false),
-                    Matrícula = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Matricula = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Carrera = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Semestre = table.Column<int>(type: "int", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Género = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Dirección = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    Genero = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Direccion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,10 +129,10 @@ namespace PsyConnect.Data.Migrations
                 name: "Psicologos",
                 columns: table => new
                 {
-                    PsicólogoID = table.Column<int>(type: "int", nullable: false)
+                    PsicologoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioID = table.Column<int>(type: "int", nullable: false),
-                    Cédula = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Cedula = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Especialidad = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Licencia = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     HoraInicioJornada = table.Column<TimeSpan>(type: "time", nullable: false),
@@ -141,7 +141,7 @@ namespace PsyConnect.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Psicologos", x => x.PsicólogoID);
+                    table.PrimaryKey("PK_Psicologos", x => x.PsicologoID);
                     table.ForeignKey(
                         name: "FK_Psicologos_Usuarios_UsuarioID",
                         column: x => x.UsuarioID,
@@ -158,7 +158,7 @@ namespace PsyConnect.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EstudianteID = table.Column<int>(type: "int", nullable: true),
                     TipoActividad = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descripción = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaActividad = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -179,15 +179,15 @@ namespace PsyConnect.Data.Migrations
                     CitaID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EstudianteID = table.Column<int>(type: "int", nullable: false),
-                    PsicólogoID = table.Column<int>(type: "int", nullable: false),
+                    PsicologoID = table.Column<int>(type: "int", nullable: false),
                     ModalidadID = table.Column<int>(type: "int", nullable: false),
                     EstadoID = table.Column<int>(type: "int", nullable: false),
                     FechaHora = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duración = table.Column<int>(type: "int", nullable: false, defaultValue: 60),
-                    Ubicación = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Duracion = table.Column<int>(type: "int", nullable: false, defaultValue: 60),
+                    Ubicacion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     EnlaceTeams = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     NotasEstudiante = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ObservacionesPsicólogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ObservacionesPsicologo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -212,10 +212,10 @@ namespace PsyConnect.Data.Migrations
                         principalColumn: "ModalidadID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Citas_Psicologos_PsicólogoID",
-                        column: x => x.PsicólogoID,
+                        name: "FK_Citas_Psicologos_PsicologoID",
+                        column: x => x.PsicologoID,
                         principalTable: "Psicologos",
-                        principalColumn: "PsicólogoID",
+                        principalColumn: "PsicologoID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -225,7 +225,7 @@ namespace PsyConnect.Data.Migrations
                 {
                     ReporteID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PsicólogoID = table.Column<int>(type: "int", nullable: true),
+                    PsicologoID = table.Column<int>(type: "int", nullable: true),
                     AdministradorID = table.Column<int>(type: "int", nullable: true),
                     TipoReporte = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -234,17 +234,17 @@ namespace PsyConnect.Data.Migrations
                     CantidadTests = table.Column<int>(type: "int", nullable: true),
                     TestsMasUtilizados = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NivelesRiesgo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaGeneración = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    FechaGeneracion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     RutaArchivo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reportes", x => x.ReporteID);
                     table.ForeignKey(
-                        name: "FK_Reportes_Psicologos_PsicólogoID",
-                        column: x => x.PsicólogoID,
+                        name: "FK_Reportes_Psicologos_PsicologoID",
+                        column: x => x.PsicologoID,
                         principalTable: "Psicologos",
-                        principalColumn: "PsicólogoID");
+                        principalColumn: "PsicologoID");
                     table.ForeignKey(
                         name: "FK_Reportes_Usuarios_AdministradorID",
                         column: x => x.AdministradorID,
@@ -262,12 +262,12 @@ namespace PsyConnect.Data.Migrations
                     TipoTestID = table.Column<int>(type: "int", nullable: false),
                     ModalidadTestID = table.Column<int>(type: "int", nullable: false),
                     NombreTest = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Descripción = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PsicólogoID = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PsicologoID = table.Column<int>(type: "int", nullable: false),
                     CantidadPreguntas = table.Column<int>(type: "int", nullable: false),
                     TiempoEstimado = table.Column<int>(type: "int", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    FechaCreación = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
@@ -279,10 +279,10 @@ namespace PsyConnect.Data.Migrations
                         principalColumn: "ModalidadTestID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tests_Psicologos_PsicólogoID",
-                        column: x => x.PsicólogoID,
+                        name: "FK_Tests_Psicologos_PsicologoID",
+                        column: x => x.PsicologoID,
                         principalTable: "Psicologos",
-                        principalColumn: "PsicólogoID",
+                        principalColumn: "PsicologoID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tests_TiposTest_TipoTestID",
@@ -299,9 +299,9 @@ namespace PsyConnect.Data.Migrations
                     PreguntaID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TestID = table.Column<int>(type: "int", nullable: false),
-                    Número = table.Column<int>(type: "int", nullable: false),
+                    Numero = table.Column<int>(type: "int", nullable: false),
                     Texto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tipo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Opción Múltiple"),
+                    Tipo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Opcion Multiple"),
                     Puntaje = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -325,7 +325,7 @@ namespace PsyConnect.Data.Migrations
                     TestID = table.Column<int>(type: "int", nullable: false),
                     EstadoID = table.Column<int>(type: "int", nullable: false),
                     FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    FechaFinalización = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FechaFinalizacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PuntajeTotal = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -382,7 +382,7 @@ namespace PsyConnect.Data.Migrations
                     RespuestaTestID = table.Column<int>(type: "int", nullable: true),
                     CitaID = table.Column<int>(type: "int", nullable: true),
                     TipoCertificado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FechaGeneración = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    FechaGeneracion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     RutaArchivo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Descargado = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     FechaDescarga = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -417,20 +417,20 @@ namespace PsyConnect.Data.Migrations
                     ResultadoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RespuestaID = table.Column<int>(type: "int", nullable: false),
-                    Interpretación = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Recomendación = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Interpretacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recomendacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nivel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FechaEvaluación = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PsicólogoID = table.Column<int>(type: "int", nullable: true)
+                    FechaEvaluacion = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PsicologoID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ResultadosInterpretacion", x => x.ResultadoID);
                     table.ForeignKey(
-                        name: "FK_ResultadosInterpretacion_Psicologos_PsicólogoID",
-                        column: x => x.PsicólogoID,
+                        name: "FK_ResultadosInterpretacion_Psicologos_PsicologoID",
+                        column: x => x.PsicologoID,
                         principalTable: "Psicologos",
-                        principalColumn: "PsicólogoID",
+                        principalColumn: "PsicologoID",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_ResultadosInterpretacion_RespuestasTest_RespuestaID",
@@ -481,13 +481,13 @@ namespace PsyConnect.Data.Migrations
                     RecomendacionID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EstudianteID = table.Column<int>(type: "int", nullable: false),
-                    PsicólogoID = table.Column<int>(type: "int", nullable: false),
+                    PsicologoID = table.Column<int>(type: "int", nullable: false),
                     ResultadoID = table.Column<int>(type: "int", nullable: true),
-                    Título = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Descripción = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoRecurso = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     URL = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    FechaAsignación = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    FechaAsignacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Vigente = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -500,10 +500,10 @@ namespace PsyConnect.Data.Migrations
                         principalColumn: "EstudianteID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RecomendacionesPersonalizadas_Psicologos_PsicólogoID",
-                        column: x => x.PsicólogoID,
+                        name: "FK_RecomendacionesPersonalizadas_Psicologos_PsicologoID",
+                        column: x => x.PsicologoID,
                         principalTable: "Psicologos",
-                        principalColumn: "PsicólogoID",
+                        principalColumn: "PsicologoID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RecomendacionesPersonalizadas_ResultadosInterpretacion_ResultadoID",
@@ -549,9 +549,9 @@ namespace PsyConnect.Data.Migrations
                 column: "ModalidadID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citas_PsicólogoID",
+                name: "IX_Citas_PsicologoID",
                 table: "Citas",
-                column: "PsicólogoID");
+                column: "PsicologoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetallesRespuestaTest_OpcionSeleccionada",
@@ -581,9 +581,9 @@ namespace PsyConnect.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Estudiantes_Matrícula",
+                name: "IX_Estudiantes_Matricula",
                 table: "Estudiantes",
-                column: "Matrícula",
+                column: "Matricula",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -619,9 +619,9 @@ namespace PsyConnect.Data.Migrations
                 column: "TestID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Psicologos_Cédula",
+                name: "IX_Psicologos_Cedula",
                 table: "Psicologos",
-                column: "Cédula",
+                column: "Cedula",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -635,9 +635,9 @@ namespace PsyConnect.Data.Migrations
                 column: "EstudianteID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecomendacionesPersonalizadas_PsicólogoID",
+                name: "IX_RecomendacionesPersonalizadas_PsicologoID",
                 table: "RecomendacionesPersonalizadas",
-                column: "PsicólogoID");
+                column: "PsicologoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecomendacionesPersonalizadas_ResultadoID",
@@ -650,9 +650,9 @@ namespace PsyConnect.Data.Migrations
                 column: "AdministradorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reportes_PsicólogoID",
+                name: "IX_Reportes_PsicologoID",
                 table: "Reportes",
-                column: "PsicólogoID");
+                column: "PsicologoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RespuestasTest_EstadoID",
@@ -670,9 +670,9 @@ namespace PsyConnect.Data.Migrations
                 column: "TestID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResultadosInterpretacion_PsicólogoID",
+                name: "IX_ResultadosInterpretacion_PsicologoID",
                 table: "ResultadosInterpretacion",
-                column: "PsicólogoID");
+                column: "PsicologoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResultadosInterpretacion_RespuestaID",
@@ -686,9 +686,9 @@ namespace PsyConnect.Data.Migrations
                 column: "ModalidadTestID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tests_PsicólogoID",
+                name: "IX_Tests_PsicologoID",
                 table: "Tests",
-                column: "PsicólogoID");
+                column: "PsicologoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tests_TipoTestID",

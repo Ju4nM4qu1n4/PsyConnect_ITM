@@ -18,7 +18,7 @@ namespace PsyConnect.Data.Repositories.Implementations
         {
             return await _dbSet
                 .Where(c => c.EstudianteID == estudianteId)
-                .OrderByDescending(c => c.FechaGeneración)
+                .OrderByDescending(c => c.FechaGeneracion)
                 .ToListAsync();
         }
 

@@ -6,6 +6,6 @@ namespace PsyConnect.Data.Repositories.Interfaces
     public interface IUsuarioRepository : IRepository<Usuario>
     {
         Task<Usuario> GetUsuarioPorEmailAsync(string email);
-        Task<Usuario> GetUsuarioPorEmailYContraseñaAsync(string email, string contraseña);
+        Task<Usuario> GetUsuarioPorEmailYContrasenaAsync(string email, string contrasena);
     }
 }

@@ -65,7 +65,7 @@ namespace PsyConnect.Business.Services.Tests
 
            
             if (!test.Activo)
-                throw new Exception("Este test no está disponible");
+                throw new Exception("Este test no esta disponible");
 
           
             var respuesta = new RespuestaTest
@@ -109,7 +109,7 @@ namespace PsyConnect.Business.Services.Tests
 
             respuesta.PuntajeTotal = puntajeTotal;
             respuesta.EstadoID = 2; 
-            respuesta.FechaFinalización = DateTime.Now;
+            respuesta.FechaFinalizacion = DateTime.Now;
 
             _respuestaTestRepository.Update(respuesta);
             await _respuestaTestRepository.SaveChangesAsync();

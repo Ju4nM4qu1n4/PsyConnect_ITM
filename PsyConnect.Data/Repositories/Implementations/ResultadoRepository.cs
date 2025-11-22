@@ -33,7 +33,7 @@ namespace PsyConnect.Data.Repositories.Implementations
         public async Task<IEnumerable<ResultadoInterpretacion>> GetResultadosEvaluadosPorPsicologoAsync(int psicologoId)
         {
             return await _dbSet
-                .Where(r => r.PsicólogoID == psicologoId)
+                .Where(r => r.PsicologoID == psicologoId)
                 .Include(r => r.RespuestaTest)
                 .ToListAsync();
         }

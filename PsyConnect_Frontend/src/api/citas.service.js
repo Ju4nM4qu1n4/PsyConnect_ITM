@@ -26,13 +26,13 @@ const citasService = {
         return response.data;
     },
 
-    // Obtener citas de un psicólogo
+    // Obtener citas de un psicologo
     obtenerCitasPsicologo: async (psicologoId) => {
         const response = await axiosInstance.get(`/Citas/psicologo/${psicologoId}`);
         return response.data;
     },
 
-    // Obtener citas próximas
+    // Obtener citas proximas
     obtenerCitasProximas: async () => {
         const response = await axiosInstance.get('/Citas/proximas');
         return response.data;

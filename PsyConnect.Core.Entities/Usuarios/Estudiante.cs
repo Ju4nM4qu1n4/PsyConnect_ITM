@@ -7,17 +7,17 @@ namespace PsyConnect.Core.Entities.Usuarios
     {
         public int EstudianteID { get; set; }
         public int UsuarioID { get; set; }
-        public string Matrícula { get; set; }
+        public string Matricula { get; set; }
         public string Carrera { get; set; }
         public int Semestre { get; set; }
         public DateTime? FechaNacimiento { get; set; }
-        public string Género { get; set; }
-        public string Dirección { get; set; }
+        public string Genero { get; set; }
+        public string Direccion { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Citas.Cita> Citas { get; set; } = new List<Citas.Cita>();
         public virtual ICollection<Respuestas.RespuestaTest> RespuestasTest { get; set; } = new List<Respuestas.RespuestaTest>();
         public virtual ICollection<Certificados.Certificado> Certificados { get; set; } = new List<Certificados.Certificado>();
         public virtual ICollection<Recomendaciones.RecomendacionPersonalizada> RecomendacionesPersonalizadas { get; set; } = new List<Recomendaciones.RecomendacionPersonalizada>();
-        public virtual ICollection<Auditoría.Historico> Historicos { get; set; } = new List<Auditoría.Historico>();
+        public virtual ICollection<Auditoria.Historico> Historicos { get; set; } = new List<Auditoria.Historico>();
     }
 }
