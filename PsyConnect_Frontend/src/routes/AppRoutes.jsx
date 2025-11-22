@@ -20,13 +20,20 @@ const AppRoutes = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<RegistroEstudiante />} />
 
+
                     {/* Rutas privadas (con Navbar) */}
                     <Route path="/" element={
-                        <PrivateRoute>
+                        <PrivateRoute> 
                             <Layout />
                         </PrivateRoute>
                     }>
                         <Route index element={<Dashboard />} />
+                        <Route path="/tests" element={<Tests />} />
+                        <Route path="/citas/agendar" element={<AgendarCita />} />
+                        <Route path="/citas" element={<MisCitas />} />
+                        <Route path="/mis-resultados" element={<MisResultados />} />
+                        <Route path="/recomendaciones" element={<MisRecomendaciones />} />
+                        <Route path="/certificados" element={<MisCertificados />} />
                     </Route>
 
                     {/* Ruta por defecto */}
