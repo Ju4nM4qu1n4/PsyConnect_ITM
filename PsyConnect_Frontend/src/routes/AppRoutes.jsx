@@ -7,6 +7,12 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login';
 import RegistroEstudiante from '../pages/RegistroEstudiante';
 import Dashboard from '../pages/Dashboard';
+import Tests from '../pages/Tests';
+import AgendarCita from '../pages/AgendarCita';
+import MisCitas from '../pages/MisCitas';
+import MisResultados from '../pages/MisResultados';
+import MisRecomendaciones from '../pages/MisRecomendaciones';
+import MisCertificados from '../pages/MisCertificados';
 
 // Layout con Navbar
 import Layout from '../components/Layout';
@@ -20,20 +26,19 @@ const AppRoutes = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<RegistroEstudiante />} />
 
-
                     {/* Rutas privadas (con Navbar) */}
                     <Route path="/" element={
-                        <PrivateRoute> 
+                        <PrivateRoute>
                             <Layout />
                         </PrivateRoute>
                     }>
                         <Route index element={<Dashboard />} />
-                        <Route path="/tests" element={<Tests />} />
-                        <Route path="/citas/agendar" element={<AgendarCita />} />
-                        <Route path="/citas" element={<MisCitas />} />
-                        <Route path="/mis-resultados" element={<MisResultados />} />
-                        <Route path="/recomendaciones" element={<MisRecomendaciones />} />
-                        <Route path="/certificados" element={<MisCertificados />} />
+                        <Route path="tests" element={<Tests />} />
+                        <Route path="citas/agendar" element={<AgendarCita />} />
+                        <Route path="citas" element={<MisCitas />} />
+                        <Route path="mis-resultados" element={<MisResultados />} />
+                        <Route path="recomendaciones" element={<MisRecomendaciones />} />
+                        <Route path="certificados" element={<MisCertificados />} />
                     </Route>
 
                     {/* Ruta por defecto */}

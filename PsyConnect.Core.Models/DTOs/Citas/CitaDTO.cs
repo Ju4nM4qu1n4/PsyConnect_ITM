@@ -12,7 +12,7 @@ namespace PsyConnect.Core.Models.DTOs.Citas
         public string ModalidadNombre { get; set; }
         public string EstadoNombre { get; set; }
         public string Ubicacion { get; set; }
-        public string EnlaceTeams { get; set; }
+        public string? EnlaceTeams { get; set; }
         public string NotasEstudiante { get; set; }
     }
 }
