@@ -5,7 +5,13 @@ using PsyConnect.Core.Models.Responses;
 using PsyConnect.Data.Repositories.Interfaces;
 using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace PsyConnect.Business.Services.Usuarios
 {
@@ -14,28 +20,28 @@ namespace PsyConnect.Business.Services.Usuarios
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IEstudianteRepository _estudianteRepository;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
         public UsuarioService(
             IUsuarioRepository usuarioRepository,
             IEstudianteRepository estudianteRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IConfiguration configuration)
         {
             _usuarioRepository = usuarioRepository;
             _estudianteRepository = estudianteRepository;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         public async Task<UsuarioDTO> RegistrarEstudianteAsync(RegistrarEstudianteRequest request)
         {
-            
             var usuarioExistente = await _usuarioRepository.GetUsuarioPorEmailAsync(request.Email);
             if (usuarioExistente != null)
                 throw new Exception("El email ya esta registrado");
 
-            
             ValidarContrasena(request.Contrasena);
 
-           
             var usuario = new Usuario
             {
                 Email = request.Email,
@@ -46,13 +52,11 @@ namespace PsyConnect.Business.Services.Usuarios
                 Telefono = request.Telefono,
                 FechaRegistro = DateTime.Now,
                 Estado = true
-
             };
 
             await _usuarioRepository.AddAsync(usuario);
             await _usuarioRepository.SaveChangesAsync();
 
-         
             var estudiante = new Estudiante
             {
                 UsuarioID = usuario.UsuarioID,
@@ -71,15 +75,12 @@ namespace PsyConnect.Business.Services.Usuarios
 
         public async Task<UsuarioDTO> RegistrarPsicologoAsync(RegistrarPsicologoRequest request)
         {
-           
             var usuarioExistente = await _usuarioRepository.GetUsuarioPorEmailAsync(request.Email);
             if (usuarioExistente != null)
                 throw new Exception("El email ya esta registrado");
 
-          
             ValidarContrasena(request.Contrasena);
 
-          
             var usuario = new Usuario
             {
                 Email = request.Email,
@@ -117,7 +118,7 @@ namespace PsyConnect.Business.Services.Usuarios
                 Email = usuario.Email,
                 Nombre = usuario.Nombre,
                 TipoUsuario = usuario.TipoUsuario,
-                Token = GenerarToken(usuario)
+                Token = await GenerarToken(usuario) // ← AGREGADO await
             };
         }
 
@@ -146,7 +147,6 @@ namespace PsyConnect.Business.Services.Usuarios
             await _usuarioRepository.SaveChangesAsync();
         }
 
-    
         private void ValidarContrasena(string contrasena)
         {
             if (string.IsNullOrWhiteSpace(contrasena) || contrasena.Length < 8)
@@ -163,10 +163,41 @@ namespace PsyConnect.Business.Services.Usuarios
             return BCrypt.Net.BCrypt.Verify(contrasena, hash);
         }
 
-        private string GenerarToken(Usuario usuario)
+        // ← NUEVO MÉTODO CON JWT REAL
+        private async Task<string> GenerarToken(Usuario usuario)
         {
-            
-            return $"token_{usuario.UsuarioID}_{DateTime.Now.Ticks}";
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, usuario.UsuarioID.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Name, usuario.Nombre),
+                new Claim("TipoUsuario", usuario.TipoUsuario)
+            };
+
+            // Si es estudiante, agregar el EstudianteID
+            if (usuario.TipoUsuario == "Estudiante")
+            {
+                var estudiante = await _estudianteRepository.GetEstudiantePorUsuarioAsync(usuario.UsuarioID);
+                if (estudiante != null)
+                {
+                    claims.Add(new Claim("EstudianteId", estudiante.EstudianteID.ToString()));
+                }
+            }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                _configuration["Jwt:Key"] ?? "ClaveSecretaSuperSegura123456789012345678901234567890"));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"] ?? "PsyConnect",
+                audience: _configuration["Jwt:Audience"] ?? "PsyConnectUsers",
+                claims: claims,
+                expires: DateTime.Now.AddHours(24),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

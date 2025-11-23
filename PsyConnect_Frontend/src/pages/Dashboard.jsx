@@ -1,12 +1,50 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Calendar, Award, Lightbulb, TrendingUp, Clock } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
+import citasService from '../api/citas.service'; // Ajusta la ruta según tu estructura
 
 const Dashboard = () => {
     const { user } = useAuth();
+    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState({
+        testsRealizados: 0,
+        citasAgendadas: 0,
+        recomendaciones: 0,
+        certificados: 0
+    });
+    const [proximasCitas, setProximasCitas] = useState([]);
+
+    useEffect(() => {
+        cargarDatos();
+    }, []);
+
+    const cargarDatos = async () => {
+        try {
+            setLoading(true);
+
+            // Obtener citas del estudiante
+            const citas = await citasService.obtenerMisCitas();
+
+            // Obtener próximas citas
+            const citasProximas = await citasService.obtenerProximasCitas();
+
+            setStats({
+                testsRealizados: 0, // Por ahora estático, después lo conectas
+                citasAgendadas: citas?.datos?.length || 0,
+                recomendaciones: 0, // Por ahora estático
+                certificados: 0 // Por ahora estático
+            });
+
+            setProximasCitas(citasProximas?.datos || []);
+        } catch (error) {
+            console.error('Error al cargar datos:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const quickActions = [
         {
@@ -39,12 +77,23 @@ const Dashboard = () => {
         },
     ];
 
-    const stats = [
-        { label: 'Tests Realizados', value: '0', icon: FileText, color: 'text-blue-600' },
-        { label: 'Citas Agendadas', value: '0', icon: Calendar, color: 'text-green-600' },
-        { label: 'Recomendaciones', value: '0', icon: Lightbulb, color: 'text-yellow-600' },
-        { label: 'Certificados', value: '0', icon: Award, color: 'text-purple-600' },
+    const statsData = [
+        { label: 'Tests Realizados', value: stats.testsRealizados, icon: FileText, color: 'text-blue-600' },
+        { label: 'Citas Agendadas', value: stats.citasAgendadas, icon: Calendar, color: 'text-green-600' },
+        { label: 'Recomendaciones', value: stats.recomendaciones, icon: Lightbulb, color: 'text-yellow-600' },
+        { label: 'Certificados', value: stats.certificados, icon: Award, color: 'text-purple-600' },
     ];
+
+    const formatearFecha = (fecha) => {
+        return new Date(fecha).toLocaleDateString('es-CO', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
 
     return (
         <div className="space-y-8">
@@ -60,14 +109,16 @@ const Dashboard = () => {
 
             {/* Estadisticas */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, index) => {
+                {statsData.map((stat, index) => {
                     const Icon = stat.icon;
                     return (
                         <Card key={index} padding="md" hover>
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                                    <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
+                                    <p className="text-3xl font-bold text-gray-800">
+                                        {loading ? '...' : stat.value}
+                                    </p>
                                 </div>
                                 <div className={`p-3 rounded-full bg-gray-100 ${stat.color}`}>
                                     <Icon className="w-6 h-6" />
@@ -114,13 +165,42 @@ const Dashboard = () => {
                     </Link>
                 </div>
                 <Card padding="lg">
-                    <div className="text-center py-8">
-                        <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                        <p className="text-gray-600 mb-4">No tienes citas programadas</p>
-                        <Link to="/citas/agendar">
-                            <Button variant="primary">Agendar Cita</Button>
-                        </Link>
-                    </div>
+                    {loading ? (
+                        <div className="text-center py-8">
+                            <p className="text-gray-600">Cargando...</p>
+                        </div>
+                    ) : proximasCitas.length > 0 ? (
+                        <div className="space-y-4">
+                            {proximasCitas.map((cita) => (
+                                <div key={cita.citaID} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="bg-primary-100 p-3 rounded-full">
+                                            <Calendar className="w-6 h-6 text-primary-600" />
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-gray-800">
+                                                {formatearFecha(cita.fechaHora)}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                                {cita.modalidad} - {cita.ubicacion}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                        {cita.estado}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                            <p className="text-gray-600 mb-4">No tienes citas programadas</p>
+                            <Link to="/citas/agendar">
+                                <Button variant="primary">Agendar Cita</Button>
+                            </Link>
+                        </div>
+                    )}
                 </Card>
             </div>
 

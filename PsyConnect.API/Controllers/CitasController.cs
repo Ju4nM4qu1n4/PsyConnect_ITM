@@ -61,6 +61,45 @@ namespace PsyConnect.API.Controllers
             }
         }
 
+
+
+        // ← NUEVO ENDPOINT: Obtener citas del estudiante actual (usa JWT)
+        [HttpGet("estudiante")]
+        public async Task<IActionResult> ObtenerMisCitas()
+        {
+            try
+            {
+                // Obtener el EstudianteID desde el claim del JWT
+                var estudianteIdClaim = User.FindFirst("EstudianteId")?.Value;
+
+                if (string.IsNullOrEmpty(estudianteIdClaim))
+                {
+                    return Unauthorized(new ErrorResponse
+                    {
+                        Mensaje = "No se pudo identificar al estudiante",
+                        Detalle = "Token inválido o estudiante no autenticado"
+                    });
+                }
+
+                var estudianteId = int.Parse(estudianteIdClaim);
+                var citas = await _citaService.ObtenerCitasPorEstudianteAsync(estudianteId);
+
+                return Ok(new SuccessResponse<object>
+                {
+                    Mensaje = "Citas obtenidas",
+                    Datos = citas
+                });
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    Mensaje = "Error al obtener citas",
+                    Detalle = ex.Message
+                });
+            }
+        }
+
         [HttpGet("estudiante/{estudianteId}")]
         public async Task<IActionResult> ObtenerCitasPorEstudiante(int estudianteId)
         {
