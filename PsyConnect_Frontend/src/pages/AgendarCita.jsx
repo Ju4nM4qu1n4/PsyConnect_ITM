@@ -28,8 +28,9 @@ const AgendarCita = () => {
     ];
 
     const psicologos = [
-        { id: 1, nombre: 'Dr. Carlos López', especialidad: 'Ansiedad' },
-        { id: 2, nombre: 'Dra. María García', especialidad: 'Depresión' },
+        { id: 1, nombre: 'Dra. Patricia Gómez', especialidad: 'Ansiedad' },
+        { id: 2, nombre: 'Dr. Roberto Díaz', especialidad: 'Depresión' },
+        { id: 3, nombre: 'Dra. Sofía López', especialidad: 'Estrés' },
     ];
 
     const handleChange = (e) => {
