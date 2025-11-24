@@ -1,6 +1,6 @@
 import axiosInstance from './axios.config';
 
-const testsService = {
+const testService = {
     // Obtener test por ID con preguntas
     obtenerTest: async (testId) => {
         const response = await axiosInstance.get(`/Tests/${testId}`);
@@ -34,6 +34,24 @@ const testsService = {
         return response.data;
     },
 
+    // Enviar respuestas del test completo
+    enviarRespuestas: async (datos) => {
+        const response = await axiosInstance.post('/Tests/responder', datos);
+        return response.data;
+    },
+
+    // Obtener historial de tests del estudiante
+    obtenerHistorial: async (estudianteId) => {
+        const response = await axiosInstance.get(`/Tests/historial/${estudianteId}`);
+        return response.data;
+    },
+
+    // Obtener resultado específico
+    obtenerResultado: async (respuestaId) => {
+        const response = await axiosInstance.get(`/Tests/resultado/${respuestaId}`);
+        return response.data;
+    },
+
     // Completar test
     completarTest: async (respuestaId) => {
         const response = await axiosInstance.post(`/Tests/completar/${respuestaId}`);
@@ -41,4 +59,4 @@ const testsService = {
     },
 };
 
-export default testsService;
+export default testService;

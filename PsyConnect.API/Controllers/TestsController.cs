@@ -142,6 +142,77 @@ namespace PsyConnect.API.Controllers
                 });
             }
         }
+        [HttpPost("responder")]
+        public async Task<IActionResult> EnviarRespuestas([FromBody] EnviarRespuestasTestRequest request)
+        {
+            try
+            {
+                var resultado = await _testService.EnviarRespuestasAsync(request);
+                return Ok(new SuccessResponse<ResultadoTestResponse>
+                {
+                    Mensaje = "Test completado exitosamente",
+                    Datos = resultado
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    Mensaje = "Error al procesar respuestas",
+                    Detalle = ex.Message
+                });
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el historial de tests de un estudiante
+        /// </summary>
+        [HttpGet("historial/{estudianteId}")]
+        public async Task<IActionResult> ObtenerHistorial(int estudianteId)
+        {
+            try
+            {
+                var historial = await _testService.ObtenerHistorialTestsAsync(estudianteId);
+                return Ok(new SuccessResponse<List<HistorialTestResponse>>
+                {
+                    Mensaje = "Historial obtenido correctamente",
+                    Datos = historial
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    Mensaje = "Error al obtener historial",
+                    Detalle = ex.Message
+                });
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el resultado detallado de un test específico
+        /// </summary>
+        [HttpGet("resultado/{respuestaId}")]
+        public async Task<IActionResult> ObtenerResultado(int respuestaId)
+        {
+            try
+            {
+                var resultado = await _testService.ObtenerResultadoAsync(respuestaId);
+                return Ok(new SuccessResponse<ResultadoTestResponse>
+                {
+                    Mensaje = "Resultado obtenido correctamente",
+                    Datos = resultado
+                });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ErrorResponse
+                {
+                    Mensaje = "Error al obtener resultado",
+                    Detalle = ex.Message
+                });
+            }
+        }
 
         [HttpPost("completar/{respuestaId}")]
         public async Task<IActionResult> CompletarTest(int respuestaId)

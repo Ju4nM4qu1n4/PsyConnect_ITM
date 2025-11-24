@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthProvider';
 import PrivateRoute from './PrivateRoute';
 
-// Importar paginas
 import Login from '../pages/Login';
 import RegistroEstudiante from '../pages/RegistroEstudiante';
 import Dashboard from '../pages/Dashboard';
@@ -15,8 +14,6 @@ import MisCitas from '../pages/MisCitas';
 import MisResultados from '../pages/MisResultados';
 import MisRecomendaciones from '../pages/MisRecomendaciones';
 import MisCertificados from '../pages/MisCertificados';
-
-// Layout con Navbar
 import Layout from '../components/Layout';
 
 const AppRoutes = () => {
@@ -36,6 +33,8 @@ const AppRoutes = () => {
                     }>
                         <Route index element={<Dashboard />} />
                         <Route path="tests" element={<Tests />} />
+                        <Route path="realizar-test" element={<RealizarTest />} />
+                        <Route path="tests/resultado/:respuestaId" element={<ResultadoTest />} />
                         <Route path="citas/agendar" element={<AgendarCita />} />
                         <Route path="citas" element={<MisCitas />} />
                         <Route path="mis-resultados" element={<MisResultados />} />

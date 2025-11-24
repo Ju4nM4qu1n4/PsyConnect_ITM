@@ -49,19 +49,24 @@ namespace PsyConnect.Data.Repositories.Implementations
                 .ToListAsync();
         }
 
-        public async Task<RespuestaTest> GetRespuestaConDetallesAsync(int respuestaId)
+        public async Task<RespuestaTest?> GetRespuestaConDetallesAsync(int respuestaId)
         {
             return await _dbSet
                 .Include(r => r.DetallesRespuesta)
-                    .ThenInclude(d => d.PreguntaTest)
-                .Include(r => r.DetallesRespuesta)
-                    .ThenInclude(d => d.OpcionRespuesta)
+                .Include(r => r.Test)
+                .Include(r => r.EstadoRespuestaTest)
                 .FirstOrDefaultAsync(r => r.RespuestaID == respuestaId);
         }
+
 
         public async Task<int> CountRespuestasPorTestAsync(int testId)
         {
             return await _dbSet.CountAsync(r => r.TestID == testId);
+        }
+
+        Task<List<RespuestaTest>> IRespuestaTestRepository.GetRespuestasPorEstudianteAsync(int estudianteId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

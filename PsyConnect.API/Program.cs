@@ -13,6 +13,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using PsyConnect.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,9 @@ builder.Services.AddScoped<IRespuestaTestRepository, RespuestaTestRepository>();
 builder.Services.AddScoped<IResultadoRepository, ResultadoRepository>();
 builder.Services.AddScoped<IRecomendacionRepository, RecomendacionRepository>();
 builder.Services.AddScoped<ICertificadoRepository, CertificadoRepository>();
+builder.Services.AddScoped<IRespuestaTestRepository, RespuestaTestRepository>();
+builder.Services.AddScoped<IOpcionRespuestaRepository, OpcionRespuestaRepository>();
+
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
@@ -35,6 +39,7 @@ builder.Services.AddScoped<ITestService, TestService>();
 builder.Services.AddScoped<IResultadoService, ResultadoService>();
 builder.Services.AddScoped<IRecomendacionService, RecomendacionService>();
 builder.Services.AddScoped<ICertificadoService, CertificadoService>();
+builder.Services.AddScoped<ITestService, TestService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

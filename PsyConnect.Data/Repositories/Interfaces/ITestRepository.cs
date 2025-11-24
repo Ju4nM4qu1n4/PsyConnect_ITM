@@ -10,6 +10,9 @@ namespace PsyConnect.Data.Repositories.Interfaces
         Task<IEnumerable<Test>> GetTestsPorTipoAsync(int tipoTestId);
         Task<IEnumerable<Test>> GetTestsPorPsicologoAsync(int psicologoId);
         Task<IEnumerable<Test>> GetTestsPorModalidadAsync(int modalidadTestId);
-        Task<Test> GetTestConPreguntasAsync(int testId);
+        Task<Test?> GetByIdAsync(int testId);
+        Task<Test?> GetTestConPreguntasAsync(int testId);
+        
+       
     }
 }

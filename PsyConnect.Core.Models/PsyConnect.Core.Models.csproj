@@ -7,14 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Citas\" />
-    <Folder Include="ViewModels\Resultados\" />
-    <Folder Include="ViewModels\Usuarios\" />
-    <Folder Include="ViewModels\Tests\" />
+    <ProjectReference Include="..\PsyConnect.Core.Entities\PsyConnect.Core.Entities.csproj" />
   </ItemGroup>
 
 </Project>

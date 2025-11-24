@@ -8,7 +8,11 @@ namespace PsyConnect.Data.Repositories.Interfaces
     {
         Task<IEnumerable<ResultadoInterpretacion>> GetResultadosPorEstudianteAsync(int estudianteId);
         Task<IEnumerable<ResultadoInterpretacion>> GetResultadosPorNivelAsync(string nivel);
+        Task<ResultadoInterpretacion?> GetByIdAsync(int resultadoId);
+        Task<ResultadoInterpretacion?> GetResultadoPorRespuestaAsync(int respuestaId);
+        Task AddAsync(ResultadoInterpretacion resultado);
+        Task SaveChangesAsync();
         Task<IEnumerable<ResultadoInterpretacion>> GetResultadosEvaluadosPorPsicologoAsync(int psicologoId);
-        Task<ResultadoInterpretacion> GetResultadoPorRespuestaAsync(int respuestaId);
+        
     }
 }

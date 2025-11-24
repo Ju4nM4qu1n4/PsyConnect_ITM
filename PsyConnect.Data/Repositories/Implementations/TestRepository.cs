@@ -49,12 +49,14 @@ namespace PsyConnect.Data.Repositories.Implementations
                 .ToListAsync();
         }
 
-        public async Task<Test> GetTestConPreguntasAsync(int testId)
+        public async Task<Test?> GetTestConPreguntasAsync(int testId)
         {
             return await _dbSet
                 .Include(t => t.PreguntasTest)
                     .ThenInclude(p => p.OpcionesRespuesta)
-                .FirstOrDefaultAsync(t => t.TestID == testId);
+                .Include(t => t.TipoTest)
+                .Include(t => t.ModalidadTest)
+                .FirstOrDefaultAsync(t => t.TestID == testId && t.Activo);
         }
     }
 }

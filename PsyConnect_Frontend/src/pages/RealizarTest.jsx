@@ -1,51 +1,45 @@
 ﻿/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Clock, AlertCircle, CheckCircle } from 'lucide-react';
-import testsService from '../api/tests.service';
-import resultadosService from '../api/resultados.service';
+import { useNavigate } from 'react-router-dom';
+import { Clock, AlertCircle, CheckCircle, ClipboardList } from 'lucide-react';
+import testService from '../api/tests.service';
+import { useAuth } from '../hooks/useAuth';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Loading from '../components/common/Loading';
 
 const RealizarTest = () => {
-    const { respuestaId } = useParams();
+    const { user } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-    const testId = location.state?.testId;
 
     const [test, setTest] = useState(null);
     const [respuestas, setRespuestas] = useState({});
     const [loading, setLoading] = useState(true);
-    const [guardando, setGuardando] = useState(false);
-    const [completando, setCompletando] = useState(false);
+    const [enviando, setEnviando] = useState(false);
     const [error, setError] = useState('');
     const [preguntaActual, setPreguntaActual] = useState(0);
     const [tiempoInicio] = useState(new Date());
+    const [mostrarResultado, setMostrarResultado] = useState(false);
+    const [resultado, setResultado] = useState(null);
+
+    const TEST_ID = 1; // ID del primer test
 
     useEffect(() => {
-        if (testId) {
-            cargarTest();
-        } else {
-            setError('ID de test no encontrado');
-            setLoading(false);
-        }
-    }, [testId]);
+        cargarTest();
+    }, []);
 
     const cargarTest = async () => {
         try {
             setLoading(true);
-            const response = await testsService.obtenerTest(testId);
+            const response = await testService.obtenerTest(TEST_ID);
 
             if (response.exitoso && response.datos) {
                 setTest(response.datos);
                 // Inicializar respuestas vacías
                 const respuestasIniciales = {};
-                if (response.datos.preguntas && response.datos.preguntas.length > 0) {
-                    response.datos.preguntas.forEach(pregunta => {
-                        respuestasIniciales[pregunta.preguntaID] = null;
-                    });
-                }
+                response.datos.preguntas?.forEach(pregunta => {
+                    respuestasIniciales[pregunta.preguntaID] = null;
+                });
                 setRespuestas(respuestasIniciales);
             } else {
                 setError('No se pudo cargar el test');
@@ -58,20 +52,22 @@ const RealizarTest = () => {
         }
     };
 
-    const handleRespuestaChange = (preguntaId, valor) => {
+    const handleRespuestaChange = (preguntaId, opcionId) => {
         setRespuestas(prev => ({
             ...prev,
-            [preguntaId]: parseInt(valor)
+            [preguntaId]: opcionId
         }));
+        setError(''); // Limpiar error al seleccionar
     };
 
     const preguntaAnterior = () => {
         if (preguntaActual > 0) {
             setPreguntaActual(prev => prev - 1);
+            setError('');
         }
     };
 
-    const preguntaSiguiente = async () => {
+    const preguntaSiguiente = () => {
         const pregunta = test.preguntas[preguntaActual];
 
         if (respuestas[pregunta.preguntaID] === null) {
@@ -81,36 +77,8 @@ const RealizarTest = () => {
 
         setError('');
 
-        // Guardar progreso cada 3 preguntas
-        if ((preguntaActual + 1) % 3 === 0) {
-            await guardarProgreso();
-        }
-
         if (preguntaActual < test.preguntas.length - 1) {
             setPreguntaActual(prev => prev + 1);
-        }
-    };
-
-    const guardarProgreso = async () => {
-        try {
-            setGuardando(true);
-
-            // Convertir respuestas al formato esperado
-            const respuestasArray = Object.entries(respuestas)
-                .filter(([_, valor]) => valor !== null)
-                .map(([preguntaId, valor]) => ({
-                    preguntaId: parseInt(preguntaId),
-                    opcionSeleccionada: valor
-                }));
-
-            if (respuestasArray.length > 0) {
-                await testsService.guardarRespuestas(respuestaId, respuestasArray);
-            }
-        } catch (err) {
-            console.error('Error al guardar progreso:', err);
-            // No mostrar error al usuario para no interrumpir
-        } finally {
-            setGuardando(false);
         }
     };
 
@@ -124,28 +92,25 @@ const RealizarTest = () => {
                 return;
             }
 
-            setCompletando(true);
+            setEnviando(true);
             setError('');
 
-            // Guardar todas las respuestas
-            const respuestasArray = Object.entries(respuestas).map(([preguntaId, valor]) => ({
-                preguntaId: parseInt(preguntaId),
-                opcionSeleccionada: valor
-            }));
+            // Preparar el request en el formato que espera el backend
+            const request = {
+                testID: TEST_ID,
+                estudianteID: user.estudianteID,
+                respuestas: Object.entries(respuestas).map(([preguntaId, opcionId]) => ({
+                    preguntaID: parseInt(preguntaId),
+                    opcionID: opcionId
+                }))
+            };
 
-            await testsService.guardarRespuestas(respuestaId, respuestasArray);
+            // Enviar todas las respuestas al backend
+            const response = await testService.enviarRespuestas(request);
 
-            // Completar el test
-            await testsService.completarTest(respuestaId);
-
-            // Evaluar y obtener resultado
-            const resultadoResponse = await resultadosService.evaluarTest(respuestaId);
-
-            if (resultadoResponse.exitoso && resultadoResponse.datos) {
-                // Redirigir a la página de resultado
-                navigate(`/tests/resultado/${resultadoResponse.datos.resultadoID}`, {
-                    replace: true
-                });
+            if (response.exitoso && response.datos) {
+                setResultado(response.datos);
+                setMostrarResultado(true);
             } else {
                 setError('Error al procesar los resultados');
             }
@@ -153,7 +118,7 @@ const RealizarTest = () => {
             console.error(err);
             setError(err.response?.data?.detalle || 'Error al finalizar el test');
         } finally {
-            setCompletando(false);
+            setEnviando(false);
         }
     };
 
@@ -169,6 +134,19 @@ const RealizarTest = () => {
         return diff;
     };
 
+    const getNivelColor = (nivel) => {
+        switch (nivel?.toLowerCase()) {
+            case 'bajo':
+                return 'text-green-800 bg-green-100 border-green-300';
+            case 'moderado':
+                return 'text-yellow-800 bg-yellow-100 border-yellow-300';
+            case 'alto':
+                return 'text-red-800 bg-red-100 border-red-300';
+            default:
+                return 'text-gray-800 bg-gray-100 border-gray-300';
+        }
+    };
+
     if (loading) return <Loading fullScreen text="Cargando test..." />;
 
     if (!test || !test.preguntas || test.preguntas.length === 0) {
@@ -178,12 +156,76 @@ const RealizarTest = () => {
                     <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">Error</h2>
                     <p className="text-gray-600 mb-4">{error || 'No se pudo cargar el test'}</p>
-                    <Button onClick={() => navigate('/tests')}>Volver a Tests</Button>
+                    <Button onClick={() => navigate('/dashboard')}>Volver al Dashboard</Button>
                 </Card>
             </div>
         );
     }
 
+    // Pantalla de resultados
+    if (mostrarResultado && resultado) {
+        return (
+            <div className="max-w-4xl mx-auto">
+                <Card padding="lg">
+                    <div className="text-center mb-6">
+                        <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                            Test Completado
+                        </h2>
+                        <p className="text-gray-600">
+                            Gracias por completar el test. Aquí están tus resultados.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="text-center">
+                            <div className="inline-block">
+                                <div className="text-sm text-gray-600 mb-2">Puntaje Total</div>
+                                <div className="text-4xl font-bold text-blue-600">
+                                    {resultado.puntajeTotal}
+                                </div>
+                                <div className="text-sm text-gray-500 mt-1">de 30 puntos</div>
+                            </div>
+                        </div>
+
+                        <div className={`p-4 rounded-lg border-2 ${getNivelColor(resultado.nivel)}`}>
+                            <div className="flex items-center gap-2 mb-2">
+                                <AlertCircle className="w-5 h-5" />
+                                <span className="font-semibold text-lg">
+                                    Nivel: {resultado.nivel}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-6 rounded-lg">
+                            <h3 className="font-semibold text-gray-800 mb-3">Interpretación</h3>
+                            <p className="text-gray-700 mb-4">{resultado.interpretacion}</p>
+
+                            <h3 className="font-semibold text-gray-800 mb-3">Recomendaciones</h3>
+                            <p className="text-gray-700">{resultado.recomendacion}</p>
+                        </div>
+
+                        <div className="flex gap-4 justify-center pt-4">
+                            <Button
+                                variant="outline"
+                                onClick={() => navigate('/dashboard')}
+                            >
+                                Volver al Dashboard
+                            </Button>
+                            <Button
+                                variant="primary"
+                                onClick={() => navigate('/agendar-cita')}
+                            >
+                                Agendar Cita con Psicólogo
+                            </Button>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        );
+    }
+
+    // Pantalla del test (pregunta por pregunta)
     const pregunta = test.preguntas[preguntaActual];
     const progreso = calcularProgreso();
     const esUltimaPregunta = preguntaActual === test.preguntas.length - 1;
@@ -211,18 +253,11 @@ const RealizarTest = () => {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                            className="bg-primary-500 h-2 rounded-full transition-all duration-300"
+                            className="bg-blue-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${progreso}%` }}
                         />
                     </div>
                 </div>
-
-                {guardando && (
-                    <div className="flex items-center gap-2 text-sm text-blue-600">
-                        <Loading size="sm" />
-                        <span>Guardando progreso...</span>
-                    </div>
-                )}
             </div>
 
             {/* Pregunta actual */}
@@ -236,7 +271,7 @@ const RealizarTest = () => {
 
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">
-                        {pregunta.textoPregunta}
+                        {pregunta.numero}. {pregunta.texto}
                     </h2>
 
                     <div className="space-y-3">
@@ -246,21 +281,20 @@ const RealizarTest = () => {
                                 className={`
                                     flex items-center p-4 border-2 rounded-lg cursor-pointer
                                     transition-all duration-200
-                                    ${respuestas[pregunta.preguntaID] === opcion.valor
-                                        ? 'border-primary-500 bg-primary-50'
-                                        : 'border-gray-300 hover:border-primary-300 bg-white'
+                                    ${respuestas[pregunta.preguntaID] === opcion.opcionID
+                                        ? 'border-blue-500 bg-blue-50'
+                                        : 'border-gray-300 hover:border-blue-300 bg-white'
                                     }
                                 `}
                             >
                                 <input
                                     type="radio"
                                     name={`pregunta-${pregunta.preguntaID}`}
-                                    value={opcion.valor}
-                                    checked={respuestas[pregunta.preguntaID] === opcion.valor}
-                                    onChange={(e) => handleRespuestaChange(pregunta.preguntaID, e.target.value)}
-                                    className="w-4 h-4 text-primary-500 focus:ring-primary-500"
+                                    checked={respuestas[pregunta.preguntaID] === opcion.opcionID}
+                                    onChange={() => handleRespuestaChange(pregunta.preguntaID, opcion.opcionID)}
+                                    className="w-4 h-4 text-blue-500 focus:ring-blue-500"
                                 />
-                                <span className="ml-3 text-gray-800">{opcion.textoOpcion}</span>
+                                <span className="ml-3 text-gray-800">{opcion.texto}</span>
                             </label>
                         ))}
                     </div>
@@ -280,11 +314,20 @@ const RealizarTest = () => {
                         <Button
                             variant="primary"
                             onClick={finalizarTest}
-                            loading={completando}
+                            disabled={enviando}
                             className="flex items-center gap-2"
                         >
-                            <CheckCircle className="w-5 h-5" />
-                            Finalizar Test
+                            {enviando ? (
+                                <>
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    Procesando...
+                                </>
+                            ) : (
+                                <>
+                                    <CheckCircle className="w-5 h-5" />
+                                    Finalizar Test
+                                </>
+                            )}
                         </Button>
                     ) : (
                         <Button
@@ -297,10 +340,10 @@ const RealizarTest = () => {
                 </div>
             </Card>
 
-            {/* Advertencia si intenta salir */}
+            {/* Advertencia */}
             <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800">
-                    ⚠ No cierres esta ventana ni salgas de la página. Tu progreso se guarda automáticamente.
+                    ⚠️ No cierres esta ventana. Todas tus respuestas se enviarán al finalizar el test.
                 </p>
             </div>
         </div>
