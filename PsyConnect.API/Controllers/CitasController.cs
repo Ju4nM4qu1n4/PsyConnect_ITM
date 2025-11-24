@@ -64,20 +64,35 @@ namespace PsyConnect.API.Controllers
 
 
         // ← NUEVO ENDPOINT: Obtener citas del estudiante actual (usa JWT)
-        [HttpGet("estudiante")]
+        [HttpGet("mis-citas")]
         public async Task<IActionResult> ObtenerMisCitas()
         {
             try
             {
-                // Obtener el EstudianteID desde el claim del JWT
+                // Obtener el UsuarioID desde el claim del JWT
+                var usuarioIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(usuarioIdClaim))
+                {
+                    return Unauthorized(new ErrorResponse
+                    {
+                        Mensaje = "No se pudo identificar al usuario",
+                        Detalle = "Token inválido o usuario no autenticado"
+                    });
+                }
+
+                var usuarioId = int.Parse(usuarioIdClaim);
+
+                // Aquí necesitas obtener el EstudianteID desde el UsuarioID
+                // Opción 1: Si agregaste EstudianteId al token (recomendado - ver abajo)
                 var estudianteIdClaim = User.FindFirst("EstudianteId")?.Value;
 
                 if (string.IsNullOrEmpty(estudianteIdClaim))
                 {
                     return Unauthorized(new ErrorResponse
                     {
-                        Mensaje = "No se pudo identificar al estudiante",
-                        Detalle = "Token inválido o estudiante no autenticado"
+                        Mensaje = "Usuario no es un estudiante",
+                        Detalle = "Solo los estudiantes pueden acceder a esta funcionalidad"
                     });
                 }
 
@@ -86,7 +101,7 @@ namespace PsyConnect.API.Controllers
 
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Citas obtenidas",
+                    Mensaje = "Citas obtenidas correctamente",
                     Datos = citas
                 });
             }

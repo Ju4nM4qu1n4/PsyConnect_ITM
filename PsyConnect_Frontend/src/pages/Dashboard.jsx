@@ -25,6 +25,7 @@ const Dashboard = () => {
         try {
             setLoading(true);
 
+            console.log('Usuario:', user);
             // Obtener citas del estudiante
             const citas = await citasService.obtenerMisCitas();
 
