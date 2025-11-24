@@ -3,6 +3,8 @@ using PsyConnect.Core.Models.Requests;
 using PsyConnect.Core.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PsyConnect.Core.Entities.Respuestas;
 
 namespace PsyConnect.API.Controllers
 {
@@ -88,13 +90,29 @@ namespace PsyConnect.API.Controllers
         {
             try
             {
-                await _testService.IniciarRespuestaTestAsync(estudianteId, testId);
+                var respuestaTest = await _testService.IniciarTestAsync(estudianteId, testId);
                 return Ok(new SuccessResponse<object>
                 {
-                    Mensaje = "Test iniciado correctamente"
+                    Mensaje = "Test iniciado correctamente",
+                    Datos = new
+                    {
+                        respuestaID = respuestaTest.RespuestaID,
+                        testID = respuestaTest.TestID,
+                        estudianteID = respuestaTest.EstudianteID,
+                        fechaInicio = respuestaTest.FechaInicio,
+                        estadoID = respuestaTest.EstadoID
+                    }
                 });
             }
-            catch (System.Exception ex)
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ErrorResponse
+                {
+                    Mensaje = "No encontrado",
+                    Detalle = ex.Message
+                });
+            }
+            catch (Exception ex)
             {
                 return BadRequest(new ErrorResponse
                 {

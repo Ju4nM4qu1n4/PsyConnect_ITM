@@ -8,6 +8,8 @@ import Login from '../pages/Login';
 import RegistroEstudiante from '../pages/RegistroEstudiante';
 import Dashboard from '../pages/Dashboard';
 import Tests from '../pages/Tests';
+import RealizarTest from '../pages/RealizarTest';
+import ResultadoTest from '../pages/ResultadoTest';
 import AgendarCita from '../pages/AgendarCita';
 import MisCitas from '../pages/MisCitas';
 import MisResultados from '../pages/MisResultados';

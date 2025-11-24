@@ -1,16 +1,19 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { FileText, Clock, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { FileText, Clock, Users, AlertCircle } from 'lucide-react';
 import testsService from '../api/tests.service';
-//import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Loading from '../components/common/Loading';
 
 const Tests = () => {
-    //const { user } = useAuth();
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const [tests, setTests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [iniciandoTest, setIniciandoTest] = useState(null);
 
     useEffect(() => {
         cargarTests();
@@ -29,7 +32,54 @@ const Tests = () => {
         }
     };
 
-    if (loading) return <Loading fullScreen />;
+    const iniciarTest = async (testId) => {
+        try {
+            setIniciandoTest(testId);
+            setError('');
+
+            console.log('Iniciando test:', { usuarioID: user.usuarioID, testId });
+
+            const response = await testsService.iniciarTest(user.usuarioID, testId);
+
+            console.log('Respuesta del servidor:', response);
+
+            // Verificar diferentes estructuras de respuesta
+            if (response && response.exitoso) {
+                const respuestaID = response.datos?.respuestaID || response.datos?.RespuestaID;
+
+                if (respuestaID) {
+                    console.log('Navegando a realizar test con respuestaID:', respuestaID);
+                    navigate(`/tests/realizar/${respuestaID}`, {
+                        state: { testId: testId }
+                    });
+                } else {
+                    console.error('No se encontró respuestaID en:', response.datos);
+                    setError('Error: No se recibió el ID de respuesta');
+                }
+            } else if (response && response.datos) {
+                // Intentar con la estructura directa
+                const respuestaID = response.datos.respuestaID || response.datos.RespuestaID;
+                if (respuestaID) {
+                    navigate(`/tests/realizar/${respuestaID}`, {
+                        state: { testId: testId }
+                    });
+                } else {
+                    setError('Error al iniciar el test: Respuesta inválida');
+                }
+            } else {
+                console.error('Respuesta no válida:', response);
+                setError('Error al iniciar el test: Respuesta del servidor inválida');
+            }
+        } catch (err) {
+            console.error('Error completo:', err);
+            console.error('Respuesta del error:', err.response);
+            setError(err.response?.data?.detalle || err.message || 'Error al iniciar el test');
+        } finally {
+            setIniciandoTest(null);
+        }
+    };
+
+    if (loading) return <Loading fullScreen text="Cargando tests..." />;
 
     return (
         <div className="space-y-6">
@@ -39,8 +89,17 @@ const Tests = () => {
             </div>
 
             {error && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-                    {error}
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                        <p className="text-sm text-red-800">{error}</p>
+                    </div>
+                    <button
+                        onClick={() => setError('')}
+                        className="text-red-600 hover:text-red-800"
+                    >
+                        ✕
+                    </button>
                 </div>
             )}
 
@@ -79,7 +138,12 @@ const Tests = () => {
                                 </div>
                             </div>
 
-                            <Button variant="primary" fullWidth>
+                            <Button
+                                variant="primary"
+                                fullWidth
+                                onClick={() => iniciarTest(test.testID)}
+                                loading={iniciandoTest === test.testID}
+                            >
                                 Realizar Test
                             </Button>
                         </Card>

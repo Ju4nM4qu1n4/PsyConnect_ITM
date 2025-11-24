@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PsyConnect.Business.Services.Tests
 {
@@ -50,29 +51,67 @@ namespace PsyConnect.Business.Services.Tests
             var tests = await _testRepository.GetTestsPorTipoAsync(tipoTestId);
             return _mapper.Map<IEnumerable<TestDTO>>(tests);
         }
+        public async Task<RespuestaTest> IniciarTestAsync(int estudianteId, int testId)
+        {
+            // Validar estudiante usando el repositorio
+            var estudiante = await _estudianteRepository.GetByIdAsync(estudianteId);
+            if (estudiante == null)
+            {
+                throw new KeyNotFoundException("Estudiante no encontrado");
+            }
+
+            // Validar test usando el repositorio
+            var test = await _testRepository.GetByIdAsync(testId);
+            if (test == null)
+            {
+                throw new KeyNotFoundException("Test no encontrado");
+            }
+
+            // Validar que el test esté activo
+            if (!test.Activo)
+            {
+                throw new InvalidOperationException("Este test no está disponible");
+            }
+
+            // Crear la respuesta del test
+            var respuestaTest = new RespuestaTest
+            {
+                EstudianteID = estudianteId,
+                TestID = testId,
+                FechaInicio = DateTime.Now,
+                EstadoID = 1, // En Progreso
+                PuntajeTotal = 0
+            };
+
+            // Guardar usando el repositorio
+            await _respuestaTestRepository.AddAsync(respuestaTest);
+            await _respuestaTestRepository.SaveChangesAsync();
+
+            return respuestaTest;
+        }
 
         public async Task IniciarRespuestaTestAsync(int estudianteId, int testId)
         {
-            
+
             var estudiante = await _estudianteRepository.GetByIdAsync(estudianteId);
             if (estudiante == null)
                 throw new Exception("Estudiante no encontrado");
 
-            
+
             var test = await _testRepository.GetByIdAsync(testId);
             if (test == null)
                 throw new Exception("Test no encontrado");
 
-           
+
             if (!test.Activo)
                 throw new Exception("Este test no esta disponible");
 
-          
+
             var respuesta = new RespuestaTest
             {
                 EstudianteID = estudianteId,
                 TestID = testId,
-                EstadoID = 1, 
+                EstadoID = 1,
                 FechaInicio = DateTime.Now
             };
 
@@ -89,7 +128,7 @@ namespace PsyConnect.Business.Services.Tests
             if (respuesta.EstadoID != 1)
                 throw new Exception("No puedes editar esta respuesta");
 
-           
+
             _respuestaTestRepository.Update(respuesta);
             await _respuestaTestRepository.SaveChangesAsync();
         }
@@ -100,7 +139,7 @@ namespace PsyConnect.Business.Services.Tests
             if (respuesta == null)
                 throw new Exception("Respuesta no encontrada");
 
-           
+
             var test = await _testRepository.GetByIdAsync(respuesta.TestID);
             if (respuesta.DetallesRespuesta.Count != test.CantidadPreguntas)
                 throw new Exception("Debes responder todas las preguntas");
@@ -108,7 +147,7 @@ namespace PsyConnect.Business.Services.Tests
             int puntajeTotal = respuesta.DetallesRespuesta.Sum(d => d.ValorRespuesta ?? 0);
 
             respuesta.PuntajeTotal = puntajeTotal;
-            respuesta.EstadoID = 2; 
+            respuesta.EstadoID = 2;
             respuesta.FechaFinalizacion = DateTime.Now;
 
             _respuestaTestRepository.Update(respuesta);
